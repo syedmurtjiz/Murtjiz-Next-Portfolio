@@ -6,35 +6,34 @@ import { motion } from 'framer-motion';
 import { FaCode, FaDesktop, FaReact, FaServer } from 'react-icons/fa';
 import TypewriterText from '../TypewriterText';
 
-
 const specializations = [
   {
     title: 'Website Design',
-    description: 'Designing visually compelling and user-focused websites using HTML, CSS, and JavaScript.',
+    description: 'Crafting visually stunning, user-centric websites using HTML, CSS, and JavaScript to deliver exceptional digital experiences.',
     projects: 5,
     icon: FaCode,
-    color: '#D32F2F',
+    color: '#EF4444',
   },
   {
     title: 'Front-End Development',
-    description: 'Developing responsive, high-performance web applications with React.js for superior user engagement.',
+    description: 'Building responsive, high-performance web applications with React.js, ensuring seamless user interactions and accessibility.',
     projects: 22,
     icon: FaDesktop,
-    color: '#1976D2',
+    color: '#3B82F6',
   },
   {
     title: 'React Development',
-    description: 'Executing intricate React-based projects with precision, scalability, and optimal performance.',
+    description: 'Delivering complex, scalable React-based solutions with a focus on performance, modularity, and maintainability.',
     projects: 10,
     icon: FaReact,
-    color: '#00ACC1',
+    color: '#06B6D4',
   },
   {
     title: 'API Development',
-    description: 'Architecting secure, scalable APIs to drive seamless application integration and functionality.',
+    description: 'Designing secure, efficient, and scalable APIs to enable robust application integration and functionality.',
     projects: 3,
     icon: FaServer,
-    color: '#388E3C',
+    color: '#22C55E',
   },
 ];
 
@@ -44,61 +43,65 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.2,
     },
   },
 };
 
 // Animation variants for cards
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       type: 'spring',
-      stiffness: 150,
-      damping: 20,
+      stiffness: 120,
+      damping: 15,
     },
   },
 };
 
 // Animation variants for icons
 const iconVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.7 },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.4,
+      duration: 0.5,
       ease: 'easeOut',
     },
   },
 };
 
-/**
- * Specialization component displaying areas of expertise
- * @returns {JSX.Element} The rendered Specialization section
- */
+
 export default function Specialization() {
-
   return (
-    <div className="p-10 rounded-2xl  w-full max-w-6xl mx-auto relative overflow-hidden transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900">
-      <div className="rounded-xl ">
-        {/* Subtle background overlay */}
-        <div className="absolute inset-0 blur-3xl " />
-
+    <section
+    className="p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden 
+    transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900"
+    
+  >
+      <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center mb-12 relative z-10"
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="text-center mb-12"
         >
-          <TypewriterText text="Core Competencies" id="specializations-heading" />
+          <TypewriterText
+            text="Areas of Expertise"
+            id="specializations-heading"
+            className="text-4xl font-bold text-gray-900 tracking-tight"
+          />
+          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Specialized skills delivering innovative, high-quality solutions for modern web development challenges.
+          </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -107,48 +110,42 @@ export default function Specialization() {
             <motion.article
               key={index}
               variants={cardVariants}
-              whileHover={{ scale: 1.02, boxShadow: '0 6px 12px rgba(0, 0, 0, 0.15)' }}
-              className="p-6 rounded-lg border border-gray-700/20 hover:border-blue-400/30 transition-all duration-300 relative group focus-within:ring-2 focus-within:ring-blue-400"
+              whileHover={{ scale: 1.03, boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
+              className="relative  p-6 rounded-xl shadow-lg border border-gray-100 hover:border-gray-200 transition-all duration-300 group focus-within:ring-2 focus-within:ring-blue-500"
               aria-labelledby={`specialization-title-${index}`}
               tabIndex={0}
             >
-              <div className="absolute inset-0  group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[rgba(59,130,246,0.05)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
               <div className="relative z-10">
                 <motion.div
                   variants={iconVariants}
-                  className="flex justify-center mb-4"
+                  className="flex justify-center mb-5"
                 >
-                  <spec.icon className="w-8 h-8" style={{ color: spec.color }} aria-hidden="true" />
+                  <spec.icon
+                    className="w-10 h-10"
+                    style={{ color: spec.color }}
+                    aria-hidden="true"
+                  />
                 </motion.div>
                 <h3
                   id={`specialization-title-${index}`}
-                  className="text-lg font-medium mb-2 text-center text-white"
+                  className="text-xl font-semibold text-white/70 text-center mb-3"
                 >
                   {spec.title}
                 </h3>
-                <p className="text-sm leading-relaxed mb-4 text-center text-white/80">{spec.description}</p>
-                <p className="text-white/80 font-medium text-center text-sm">
-                  {spec.projects} Projects
+                <p className="text-white text-sm leading-relaxed text-center mb-4">
+                  {spec.description}
+                </p>
+                <p className="text-white/70 font-medium text-center text-sm">
+                  {spec.projects} {spec.projects === 1 ? 'Project' : 'Projects'} Completed
                 </p>
               </div>
             </motion.article>
           ))}
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-12 relative z-10"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            View All Projects
-          </motion.button>
-        </motion.div>
+
       </div>
-    </div>
+    </section>
   );
 }
