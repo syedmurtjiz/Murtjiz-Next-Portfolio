@@ -151,7 +151,7 @@ export default function Hero() {
                 className="transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-full p-1 text-gray-700 hover:text-purple-600"
               >
                 <MotionLink
-                  href="https://twitter.com/hafiziqbal"
+                  href="https://x.com/Murtjiz_Naqvi"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="X (Twitter) Profile"
@@ -167,7 +167,7 @@ export default function Hero() {
                 className="transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-full p-1 text-gray-700 hover:text-purple-600"
               >
                 <MotionLink
-                  href="https://github.com/hafizullah"
+                  href="https://github.com/syedmurtjiz"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub Profile"
