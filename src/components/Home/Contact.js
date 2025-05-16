@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaSpinner, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
+import Link from 'next/link';
 import TypewriterText from '../TypewriterText';
 
 /**
@@ -193,12 +194,16 @@ export default function ContactForm() {
             </p>
             <ul className="space-y-4">
               <li className="flex items-center">
-                <FaPhoneAlt className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
-                <a href="tel:+92302880748" className="hover:text-blue-300 transition-colors">+92 302 880748</a>
+                <Link href="https://wa.me/923447470874" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-300 transition-colors">
+                  <FaWhatsapp className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
+                  +92 3447470874
+                </Link>
               </li>
               <li className="flex items-center">
-                <FaEnvelope className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
-                <a href="mailto:murtizanagvi@gmail.com" className="hover:text-blue-300 transition-colors">murtizanagvi@gmail.com</a>
+                <Link href="mailto:murtjiznaqvi@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-300 transition-colors">
+                  <FaEnvelope className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
+                  murtjiznaqvi@gmail.com
+                </Link>
               </li>
               <li className="flex items-center">
                 <FaMapMarkerAlt className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
