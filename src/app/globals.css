@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: transparent;
+  --text: #111827;
+  --primary: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --foreground: #171717;
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 45% 45%;
+  }
+  100% {
+    background-position: 55% 55%;
+  }
+}
+
+@keyframes gradient-xy {
+  0% {
+    background-size: 400% 400%;
+    background-position: 0% 0%;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: 100% 100%;
+  }
+  100% {
+    background-size: 400% 400%;
+    background-position: 0% 0%;
+  }
+}
+
+.animate-gradient-xy {
+  animation: gradient-xy 15s ease infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: transparent;
+    --foreground: #ededed;
+    --text: #ededed;
+  }
+}
+
+body {
+  background: linear-gradient(to bottom right, #0a0a0a, #1a1a2e, #16213e);
+  min-height: 100vh;
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.25);
+}
