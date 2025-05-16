@@ -168,11 +168,7 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
-                isSubmitting
-                  ? 'bg-indigo-400 dark:bg-indigo-600 cursor-not-allowed'
-                  : 'bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white'
-              }`}
+              className={`w-full py-3 px-6 rounded-lg font-medium transition-colors bg-[#0077B5] hover:text-[#0077B5]/80`}
               disabled={isSubmitting}
               aria-busy={isSubmitting ? 'true' : 'false'}
             >
@@ -204,7 +200,7 @@ export default function ContactForm() {
                   <FaEnvelope className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
                   murtjiznaqvi@gmail.com
                 </Link>
-              </li>
+              </li> 
               <li className="flex items-center">
                 <FaMapMarkerAlt className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
                 <span>Saddar, Rawalpindi, Pakistan</span>
