@@ -93,14 +93,14 @@ export default function WhyChooseMe() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={sectionVariants}
-        className="relative z-10 bg-gradient-to-r from-purple-500/5 to-pink-500/5 dark:from-purple-900/10 dark:to-pink-900/10 py-16 px-6 md:px-12 rounded-3xl shadow-xl mx-auto max-w-6xl my-16"
+        className="relative z-10 bg-gradient-to-r from-purple-500/5 to-pink-500/5 dark:from-purple-900/10 dark:to-pink-900/10 py-16 px-6 md:px-12 rounded-3xl shadow-xl mx-auto max-w-6xl my-16 gap-8"
       >
       <motion.h2
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-12"
+        className="text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mt-12 mb-8"
       >
         Why Choose Me?
       </motion.h2>
@@ -149,8 +149,8 @@ export default function WhyChooseMe() {
           </motion.div>
         ))}
       </div>
-      <Specialization />  
       </motion.section>
+      <Specialization className="mt-12"/>
     </PageHero>
   );
 }
