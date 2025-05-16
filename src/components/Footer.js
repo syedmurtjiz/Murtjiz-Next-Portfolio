@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
+import Link from 'next/link';
 
 const Footer = () => {
   // Component logic here
@@ -25,12 +24,12 @@ const Footer = () => {
           <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500">
             Contact
           </h3>
-          <ul className="space-y-4 text-gray-700">
+          <ul className="space-y-4 text-white/60">
             <li>Email: <a href="mailto:murtjiznaqvi@gmail.com" className="hover:text-purple-600 transition-colors duration-300">murtjiznaqvi@gmail.com</a></li>
-            <li>Phone: <a href="https://wa.me/923447470874" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-purple-600 transition-colors duration-300">
+            <li><Link href="https://wa.me/923447470874" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-purple-600 transition-colors duration-300">
               <FaWhatsapp className="mr-2" size={16} />
               +92 344 7470874
-            </a></li>
+            </Link></li>
             <li>Location: <span className="hover:text-purple-600 transition-colors duration-300">Pakistan</span></li>
           </ul>
         </motion.div>
@@ -45,7 +44,7 @@ const Footer = () => {
           <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500">
             Quick Links
           </h3>
-          <ul className="space-y-4 text-gray-700">
+          <ul className="space-y-4 text-white/60">
             <li><Link href="/" className="hover:text-purple-600 transition-colors duration-300">Home</Link></li>
             <li><Link href="/about" className="hover:text-purple-600 transition-colors duration-300">About</Link></li>
             <li><Link href="/portfolio" className="hover:text-purple-600 transition-colors duration-300">Portfolio</Link></li>
@@ -63,39 +62,21 @@ const Footer = () => {
           <h3 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500">
             Connect
           </h3>
-          <ul className="flex justify-center space-x-6 mt-6">
+          <ul className="flex justify-center space-x-6 mt-6 text-[#0077B5] hover:text-[#0077B5]/80 transition-colors duration-300">
             <li>
-              <a 
-                href="https://x.com/Murtjiz_Naqvi" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
-                aria-label="Twitter"
-              >
+              <Link href="https://x.com/Murtjiz_Naqvi" target="_blank" rel="noopener noreferrer">
                 <FaXTwitter size={24} />
-              </a>
+              </Link>
             </li>
             <li>
-              <a 
-                href="https://github.com/syedmurtjiz" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
-                aria-label="GitHub"
-              >
+              <Link href="https://github.com/syedmurtjiz" target="_blank" rel="noopener noreferrer">
                 <FaGithub size={24} />
-              </a>
+              </Link>
             </li>
             <li>
-              <a 
-                href="https://www.linkedin.com/in/syedmurtjiz/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin size={24} />
-              </a>
+              <Link href="https://www.linkedin.com/in/syedmurtjiz/" target="_blank" rel="noopener noreferrer">
+                  <FaLinkedin size={24} />
+              </Link>
             </li>
           </ul>
         </motion.div>
@@ -108,7 +89,7 @@ const Footer = () => {
         transition={{ duration: 0.8, delay: 0.6 }}
         className="text-center mt-12 pt-6 border-t border-gray-200/50"
       >
-        <p className="text-gray-600">
+        <p className="text-white/60">
           &copy; {new Date().getFullYear()} Murtjiz Naqvi. All rights reserved.
         </p>
       </motion.div>
