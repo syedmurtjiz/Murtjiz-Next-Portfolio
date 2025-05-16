@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
+import { FaGithub, FaLinkedin, FaXTwitter, FaWhatsapp } from 'react-icons/fa6';
 
 const Footer = () => {
   // Component logic here
@@ -27,7 +27,10 @@ const Footer = () => {
           </h3>
           <ul className="space-y-4 text-gray-700">
             <li>Email: <a href="mailto:murtjiznaqvi@gmail.com" className="hover:text-purple-600 transition-colors duration-300">murtjiznaqvi@gmail.com</a></li>
-            <li>Phone: <span className="hover:text-purple-600 transition-colors duration-300">+92 XXX XXX XXXX</span></li>
+            <li>Phone: <a href="https://wa.me/923447470874" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-purple-600 transition-colors duration-300">
+              <FaWhatsapp className="mr-2" size={16} />
+              +92 344 7470874
+            </a></li>
             <li>Location: <span className="hover:text-purple-600 transition-colors duration-300">Pakistan</span></li>
           </ul>
         </motion.div>
@@ -63,7 +66,7 @@ const Footer = () => {
           <ul className="flex justify-center space-x-6 mt-6">
             <li>
               <a 
-                href="https://twitter.com/syedmurtjiz" 
+                href="https://x.com/Murtjiz_Naqvi" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
@@ -85,7 +88,7 @@ const Footer = () => {
             </li>
             <li>
               <a 
-                href="https://linkedin.com/in/syedmurtjiz" 
+                href="https://www.linkedin.com/in/syedmurtjiz/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-700 hover:text-purple-600 transition-colors duration-300"
