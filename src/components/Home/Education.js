@@ -119,32 +119,31 @@ const timelineDotVariants = {
  * @returns {JSX.Element} The rendered EducationExperience section
  */
 export default function EducationExperience() {
-  // Component logic here
-
   return (
     <div
-      className="p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900 "
+      className="p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl w-full max-w-7xl mx-auto relative overflow-hidden border border-gray-200 text-gray-900 transition-all duration-500 hover:scale-[1.01] md:hover:scale-[1.02] focus-within:ring-2 focus-within:ring-blue-400"
       id="education-experience"
       aria-labelledby="education-experience-heading"
       role="region"
     >
       {/* Subtle Glow Effect */}
       <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 opacity-50 blur-3xl rotate-45 -z-10"></div>
-      <div className="p-8 md:p-12 ">
-        {/* Subtle background overlay */}
-        <div className="absolute   opacity-40 z-0" />
-
+      <div className="relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center mb-12 relative z-10"
+          className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12"
         >
-          <TypewriterText text="Academic & Professional Background" id="education-experience-heading" />
+          <TypewriterText
+            text="Academic & Professional Background"
+            id="education-experience-heading"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white"
+          />
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 relative z-10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -152,32 +151,32 @@ export default function EducationExperience() {
           {/* Education Column */}
           <motion.article
             variants={itemVariants}
-            className=" p-6 rounded-lg border border-gray-200 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
+            className="p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
             aria-labelledby="education-heading"
             tabIndex={0}
           >
             <h3
               id="education-heading"
-              className="text-xl lg:text-2xl font-medium mb-6 text-white flex items-center gap-2 border-b border-blue-400/30 pb-3"
+              className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-6 text-white flex items-center gap-2 border-b border-blue-400/30 pb-2 sm:pb-3"
             >
-              <FaGraduationCap className="text-purple" aria-hidden="true" />
+              <FaGraduationCap className="text-purple-400 text-lg sm:text-xl" aria-hidden="true" />
               Education
             </h3>
             {education.map((edu, index) => (
               <motion.div
                 key={index}
-                className="relative pl-8 mb-6 last:mb-0"
+                className="relative pl-6 sm:pl-8 mb-4 sm:mb-6 last:mb-0"
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <motion.div
-                  className="absolute left-0 top-1.5 w-3 h-3 bg-blue-400 rounded-full shadow-sm"
+                  className="absolute left-0 top-1 sm:top-1.5 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full shadow-sm"
                   variants={timelineDotVariants}
                 />
-                <div className="absolute left-[5.5px] top-5 h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
-                <p className="text-base font-medium text-white">{edu.title}</p>
-                <p className="text-sm mt-1 text-white/80">{edu.institution}</p>
+                <div className="absolute left-[3.5px] sm:left-[5.5px] top-3 sm:top-5 h-[calc(100%-0.75rem)] sm:h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
+                <p className="text-sm sm:text-base font-medium text-white">{edu.title}</p>
+                <p className="text-xs sm:text-sm mt-1 text-white/80">{edu.institution}</p>
                 <p className="text-xs mt-1 text-blue-600">
                   {edu.date} • {edu.location}
                 </p>
@@ -188,33 +187,33 @@ export default function EducationExperience() {
           {/* Experience Column */}
           <motion.article
             variants={itemVariants}
-            className="p-6 rounded-lg border border-white-700/20 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
+            className="p-4 sm:p-5 md:p-6 rounded-lg border border-white-700/20 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
             aria-labelledby="experience-heading"
             tabIndex={0}
           >
             <h3
               id="experience-heading"
-              className="text-xl lg:text-2xl font-medium mb-6 text-gray-100 flex items-center gap-2 border-b border-blue-400/30 pb-3"
+              className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-6 text-gray-100 flex items-center gap-2 border-b border-blue-400/30 pb-2 sm:pb-3"
             >
-              <FaCode className="text-blue-400" aria-hidden="true" />
+              <FaCode className="text-blue-400 text-lg sm:text-xl" aria-hidden="true" />
               Professional Experience
             </h3>
             {experience.map((exp, index) => (
               <motion.div
                 key={index}
-                className="relative pl-8 mb-6 last:mb-0"
+                className="relative pl-6 sm:pl-8 mb-4 sm:mb-6 last:mb-0"
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <motion.div
-                  className="absolute left-0 top-1.5 w-3 h-3 bg-blue-400 rounded-full shadow-sm"
+                  className="absolute left-0 top-1 sm:top-1.5 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full shadow-sm"
                   variants={timelineDotVariants}
                 />
-                <div className="absolute left-[5.5px] top-5 h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
-                <p className="text-gray-200 text-base font-medium">{exp.title}</p>
-                <p className="text-gray-400 text-sm mt-1">{exp.details}</p>
-                <p className="text-blue-300 text-xs mt-1">
+                <div className="absolute left-[3.5px] sm:left-[5.5px] top-3 sm:top-5 h-[calc(100%-0.75rem)] sm:h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
+                <p className="text-sm sm:text-base font-medium text-gray-200">{exp.title}</p>
+                <p className="text-xs sm:text-sm mt-1 text-gray-400">{exp.details}</p>
+                <p className="text-xs mt-1 text-blue-300">
                   {exp.date} | {exp.company}
                 </p>
               </motion.div>
@@ -224,33 +223,33 @@ export default function EducationExperience() {
           {/* Past Roles Column */}
           <motion.article
             variants={itemVariants}
-            className="p-6 rounded-lg border border-white-700/20 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
+            className="p-4 sm:p-5 md:p-6 rounded-lg border border-white-700/20 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
             aria-labelledby="past-roles-heading"
             tabIndex={0}
           >
             <h3
               id="past-roles-heading"
-              className="text-xl lg:text-2xl font-medium mb-6 text-gray-100 flex items-center gap-2 border-b border-blue-400/30 pb-3"
+              className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-6 text-gray-100 flex items-center gap-2 border-b border-blue-400/30 pb-2 sm:pb-3"
             >
-              <FaUserTie className="text-blue-400" aria-hidden="true" />
+              <FaUserTie className="text-blue-400 text-lg sm:text-xl" aria-hidden="true" />
               Previous Roles
             </h3>
             {pastRoles.map((role, index) => (
               <motion.div
                 key={index}
-                className="relative pl-8 mb-6 last:mb-0"
+                className="relative pl-6 sm:pl-8 mb-4 sm:mb-6 last:mb-0"
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <motion.div
-                  className="absolute left-0 top-1.5 w-3 h-3 bg-blue-400 rounded-full shadow-sm"
+                  className="absolute left-0 top-1 sm:top-1.5 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full shadow-sm"
                   variants={timelineDotVariants}
                 />
-                <div className="absolute left-[5.5px] top-5 h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
-                <p className="text-gray-200 text-base font-medium">{role.title}</p>
-                <p className="text-gray-400 text-sm mt-1">{role.details}</p>
-                <p className="text-blue-300 text-xs mt-1">
+                <div className="absolute left-[3.5px] sm:left-[5.5px] top-3 sm:top-5 h-[calc(100%-0.75rem)] sm:h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
+                <p className="text-sm sm:text-base font-medium text-gray-200">{role.title}</p>
+                <p className="text-xs sm:text-sm mt-1 text-gray-400">{role.details}</p>
+                <p className="text-xs mt-1 text-blue-300">
                   {role.date} | {role.company}
                 </p>
               </motion.div>
