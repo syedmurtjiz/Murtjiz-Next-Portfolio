@@ -9,33 +9,100 @@ import TypewriterText from '../TypewriterText';
 // Project data
 const projects = [
   {
+    slug: 'kelvinweather',
     title: 'KelvinWeather',
     description: 'A sophisticated weather application delivering real-time updates, built with React and Tailwind CSS.',
     image: '/weather.png',
-    liveLink: 'https://kelvinweather-demo.com',
-    sourceLink: 'https://github.com/murtjiznaqvi/kelvinweather',
+    liveLink: 'https://climatepredictions.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/my-weather-app',
+    technologies: ['React', 'Tailwind CSS', 'OpenWeather API'],
+    features: [
+      'Real-time weather updates',
+      '5-day forecast',
+      'Temperature conversion',
+      'Location-based weather',
+      'Responsive design',
+    ]
   },
   {
+    slug: 'spotifyclone',
     title: 'SpotifyClone',
     description: 'A full-stack music streaming platform replicating Spotify, developed using Next.js and Node.js.',
     image: '/spotify.png',
-    liveLink: 'https://spotifyclone-demo.com',
-    sourceLink: 'https://github.com/murtjiznaqvi/spotifyclone',
+    liveLink: 'https://spotifyclient.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/spotifyclone',
+    technologies: ['Next.js', 'Node.js', 'MongoDB', 'Spotify API'],
+    features: [
+      'Music streaming',
+      'Playlist management',
+      'Search functionality',
+      'User authentication',
+      'Responsive design',
+    ]
   },
   {
+    slug: 'bookingreplica',
     title: 'Booking.com Replica',
     description: 'A feature-rich replica of Booking.com with search and booking capabilities, powered by React and Firebase.',
     image: '/booking.png',
-    liveLink: 'https://bookingreplica-demo.com',
-    sourceLink: 'https://github.com/murtjiznaqvi/bookingreplica',
+    liveLink: 'https://booking-replica.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/booking.com?tab=readme-ov-file',
+    technologies: ['React', 'Firebase', 'Tailwind CSS'],
+    features: [
+      'Hotel search',
+      'Booking system',
+      'Payment integration',
+      'User authentication',
+      'Responsive design',
+    ]
   },
   {
+    slug: 'portfolio',
     title: 'Portfolio Website',
     description: 'A professional portfolio showcasing my expertise and projects, crafted with Next.js and Tailwind CSS.',
     image: '/portfolio.png',
-    liveLink: 'https://murtjiznaqvi.com',
-    sourceLink: 'https://github.com/murtjiznaqvi/portfolio',
+    liveLink: 'https://syedmurtjizhussain.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/portfolio',
+    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
+    features: [
+      'Project showcase',
+      'Contact form',
+      'Responsive design',
+      'Smooth animations',
+      'SEO optimized',
+    ]
   },
+  {
+    slug: 'elevateunlimited',
+    title: 'Elevate Unlimited',
+    description: 'A professional portfolio showcasing my expertise and projects, crafted with Next.js and Tailwind CSS.',
+    image: '/elevate.png',
+    liveLink: 'https://elevatesunlimited.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/Elevate-Unlimited',
+    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
+    features: [
+      'Project showcase',
+      'Contact form',
+      'Responsive design',
+      'Smooth animations',
+      'SEO optimized',
+    ]
+  },
+    {
+    slug: 'cozycritters',
+    title: 'Cozy Critters',
+    description: 'Each pet profile provides detailed information about the animal’s personality, care needs, and lifespan.',
+    image: '/cozy.jpg',
+    liveLink: 'https://cozy-critters.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/Cozy-Critters',
+    technologies: ['React.js', 'CSS'],
+    features: [
+      'Project showcase',
+      'Contact form',
+      'Responsive design',
+      'Smooth animations',
+    ]
+  }
 ];
 
 // Animation variants
@@ -105,7 +172,7 @@ export default function Projects() {
                 key={index}
                 variants={cardVariants}
                 whileHover={{ scale: 1.02, boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)' }}
-                className="relative p-5 rounded-xl transition-all duration-300 group border text-white "
+                className="relative p-5 rounded-xl transition-all duration-300 group border text-white cursor-pointer hover:shadow-xl hover:scale-[1.02]"
                 aria-labelledby={`project-title-${index}`}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
@@ -153,22 +220,12 @@ export default function Projects() {
                   <p className="mb-4 text-white/30">
                     {project.description}
                   </p>
-                  <div className="flex space-x-4">
+                  <div className="flex justify-center gap-4">
                     <Link
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href={`/projects/${project.slug}`}
                       className="text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
                     >
-                      Live Demo
-                    </Link>
-                    <Link
-                      href={project.sourceLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm font-medium transition-colors text-gray-700 hover:text-gray-600"
-                    >
-                      Source Code
+                      View Details
                     </Link>
                   </div>
                 </div>
