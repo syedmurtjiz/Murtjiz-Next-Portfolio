@@ -52,7 +52,7 @@ export default function Home() {
 
       {/* Header Section */}
       <motion.h1
-        className="text-5xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
+        className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -108,7 +108,7 @@ export default function Home() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <h2 className="text-3xl font-semibold mb-4 text-white/80 text-left">Achievements in My Professional Life</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-3 sm:mb-4 text-white/80 text-left">Achievements in My Professional Life</h2>
           <p className="text-gray-300 mb-6">
             I built features with HTML, CSS, JavaScript, and React.js, refining user interfaces and improving code quality through reviews. My role provided key hands-on experience in web development.
           </p>
@@ -134,7 +134,7 @@ export default function Home() {
             As a web designer, I focus on understanding user needs and goals to create effective and visually appealing websites.
           </p>
           <motion.div
-            className="w-full h-48 relative"
+            className="w-full h-32 sm:h-40 md:h-48 relative"
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.3 }}
           >
