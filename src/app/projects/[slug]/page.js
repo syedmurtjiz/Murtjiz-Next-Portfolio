@@ -148,6 +148,9 @@ export default function ProjectPage({ params }) {
                   >
                     <TypewriterText text={project.title} id="projects-heading" />
                   </motion.div>
+<div className="text-white/60 text-center mb-4" id="projects-heading">
+  {project.description}
+</div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {/* Project Image */}
