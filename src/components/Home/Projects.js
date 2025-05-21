@@ -148,9 +148,9 @@ export default function Projects() {
     <div
       className="p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900"
     >
-      <div className="rounded-xl p-8 md:p-12 ">
+      <div className=" rounded-xl p-8 md:p-12 ">
         {/* Subtle Glow Effect */}
-        <div className="absolute rotate-45 -z-10 blur-3xl"></div>
+        <div className="rotate-45 -z-10 blur-3xl max-w-3xl mx-auto"></div>
 
           <motion.div
             initial={{ opacity: 0, y: -40 }}
@@ -175,7 +175,7 @@ export default function Projects() {
                 className="relative p-5 rounded-xl transition-all duration-300 group border text-white cursor-pointer hover:shadow-xl hover:scale-[1.02]"
                 aria-labelledby={`project-title-${index}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-sm" />
                 <div className="relative z-10">
                   <div className="relative h-48 w-full mb-5 overflow-hidden rounded-lg group/image">
                     <Image
@@ -223,7 +223,7 @@ export default function Projects() {
                   <div className="flex justify-center gap-4">
                     <Link
                       href={`/projects/${project.slug}`}
-                      className="text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+                      className="text-xs sm:text-sm font-medium transition-colors hover:text-indigo-300"
                     >
                       View Details
                     </Link>
