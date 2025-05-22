@@ -16,18 +16,31 @@ export default function ContactForm() {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log('Form submitted with data:', data);
-    console.log('Environment variables:', {
-      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ? 'Set' : 'Not set',
-      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ? 'Set' : 'Not set',
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? 'Set' : 'Not set',
-      recipientEmail: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL ? 'Set' : 'Not set'
-    });
+    console.log('=== Form Submission Started ===');
+    console.log('Form data:', data);
     
+    // Log environment variables (safe since they're prefixed with NEXT_PUBLIC_)
+    const envVars = {
+      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'Not set',
+      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'Not set',
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? 'Set (hidden for security)' : 'Not set',
+      recipientEmail: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL || 'Not set'
+    };
+    console.log('Environment variables:', envVars);
+    
+    // Show loading state
     setIsSubmitting(true);
+    
     try {
+      // Basic validation
+      if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 
+          !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 
+          !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+        throw new Error('Missing required EmailJS configuration. Please check your environment variables.');
+      }
+      
       const templateParams = {
-        from_name: `${data.firstName} ${data.lastName}`,
+        from_name: `${data.firstName} ${data.lastName}`.trim(),
         from_email: data.email,
         to_email: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL || 'murtjiznaqvi@gmail.com',
         phone: data.phone,
@@ -37,6 +50,7 @@ export default function ContactForm() {
 
       console.log('Sending email with params:', templateParams);
 
+      // Send email using EmailJS
       const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
@@ -48,16 +62,34 @@ export default function ContactForm() {
       reset();
       alert('Your message has been sent successfully! I\'ll get back to you soon.');
     } catch (error) {
-      console.error('Email sending failed:', {
-        error,
+      console.error('=== Email Sending Failed ===');
+      console.error('Error details:', {
+        name: error.name,
         message: error.message,
-        status: error.status,
-        text: error.text
+        status: error.status || 'N/A',
+        text: error.text || 'N/A',
+        stack: error.stack || 'No stack trace'
       });
       
-      alert(`Failed to send message. ${error.message || 'Please try again or contact me directly at murtjiznaqvi@gmail.com'}`);
+      // More user-friendly error messages
+      let errorMessage = 'Failed to send message. ';
+      
+      if (error.status === 0) {
+        errorMessage += 'Network error. Please check your internet connection.';
+      } else if (error.status === 400) {
+        errorMessage += 'Invalid request. Please check the form data and try again.';
+      } else if (error.status === 401) {
+        errorMessage += 'Authentication failed. Please check your EmailJS configuration.';
+      } else if (error.status >= 500) {
+        errorMessage += 'Server error. Please try again later.';
+      } else {
+        errorMessage += error.message || 'Please try again or contact me directly at murtjiznaqvi@gmail.com';
+      }
+      
+      alert(errorMessage);
     } finally {
       setIsSubmitting(false);
+      console.log('=== Form Submission Completed ===');
     }
   };
 
