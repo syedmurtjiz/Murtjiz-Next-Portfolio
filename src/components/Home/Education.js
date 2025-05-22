@@ -121,7 +121,7 @@ const timelineDotVariants = {
 export default function EducationExperience() {
   return (
     <div
-      className="p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl w-full max-w-7xl mx-auto relative overflow-hidden border border-gray-200 text-gray-900 transition-all duration-500 hover:scale-[1.01] md:hover:scale-[1.02] focus-within:ring-2 focus-within:ring-blue-400"
+      className="p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden border border-gray-200 text-gray-900 transition-all duration-500 hover:scale-[1.01] md:hover:scale-[1.02] focus-within:ring-2 focus-within:ring-blue-400"
       id="education-experience"
       aria-labelledby="education-experience-heading"
       role="region"

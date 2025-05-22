@@ -145,8 +145,8 @@ export default function Projects() {
   // Component logic here
 
   return (
-    <section className="w-full bg-gray-900 py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

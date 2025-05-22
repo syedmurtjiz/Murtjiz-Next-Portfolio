@@ -83,7 +83,7 @@ export default function Specialization() {
     transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900"
     
   >
-      <div className="max-w-6xl mx-auto">
+      <div className="">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
