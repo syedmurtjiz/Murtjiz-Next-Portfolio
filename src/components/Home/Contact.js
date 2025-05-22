@@ -1,34 +1,43 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaEnvelope, FaMapMarkerAlt, FaWhatsapp } from 'react-icons/fa';
+import { FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaSpinner } from 'react-icons/fa';
 import Link from 'next/link';
 import TypewriterText from '../TypewriterText';
+import emailjs from '@emailjs/browser';
 
-/**
- * ContactForm component for user inquiries
- * @returns {JSX.Element} The rendered ContactForm section
- */
 export default function ContactForm() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  /**
-   * Handles form submission
-   * @param {Object} data - Form data
-   */
+  useEffect(() => {
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+  }, []);
+
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log('Form Data:', data);
+      const templateParams = {
+        from_name: `${data.firstName} ${data.lastName}`,
+        from_email: data.email,
+        to_email: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL,
+        phone: data.phone,
+        message: data.message,
+        reply_to: data.email  // This ensures the reply button in email clients works correctly
+      };
+
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
+
       reset();
-      alert('Your message has been sent successfully.');
+      alert('Your message has been sent successfully! I\'ll get back to you soon.');
     } catch (error) {
-      console.error('Submission error:', error);
-      alert('An error occurred. Please try again later.');
+      console.error('Email sending failed:', error);
+      alert('Failed to send message. Please try again or contact me directly at murtjiznaqvi@gmail.com');
     } finally {
       setIsSubmitting(false);
     }
@@ -42,10 +51,8 @@ export default function ContactForm() {
       aria-labelledby="contact-heading"
       role="region"
     >
-      {/* Subtle Glow Effect */}
       <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 opacity-50 blur-3xl rotate-45 -z-10"></div>
       <div className="max-w-6xl mx-auto rounded-xl p-8 md:p-12">
-        {/* Subtle background overlay */}
         <div className="absolute inset-0 blur-3xl opacity-40 z-0" />
 
         <div className="text-center mb-8">
@@ -57,7 +64,6 @@ export default function ContactForm() {
         </p>
 
         <div className="flex flex-col lg:flex-row gap-8 relative z-10">
-          {/* Form Section */}
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex-1 space-y-6"
@@ -136,8 +142,8 @@ export default function ContactForm() {
                 {...register('phone', {
                   required: 'Phone number is required',
                   pattern: {
-                    value: /^\+?[1-9]\d{1,14}$/,
-                    message: 'Please enter a valid phone number',
+                    value: /^03\d{9}$/,
+                    message: 'Please enter a valid Pakistani phone number starting with 03 (e.g., 03123456789)',
                   },
                 })}
                 aria-invalid={errors.phone ? 'true' : 'false'}
@@ -183,7 +189,6 @@ export default function ContactForm() {
             </button>
           </form>
 
-          {/* Contact Info Section */}
           <aside className="flex-1 text-gray-300 text-sm lg:text-base">
             <p className="mb-6">
               I am available for new projects and collaborations. Contact me to discuss your ideas or inquire about my services.
