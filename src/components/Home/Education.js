@@ -130,16 +130,19 @@ export default function EducationExperience() {
       <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 opacity-50 blur-3xl rotate-45 -z-10"></div>
       <div className="relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12"
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
         >
           <TypewriterText
             text="Academic & Professional Background"
             id="education-experience-heading"
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white"
+            className="text-3xl sm:text-4xl font-extrabold mb-4"
           />
+          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+            My educational journey and professional growth
+          </p>
         </motion.div>
 
         <motion.div
