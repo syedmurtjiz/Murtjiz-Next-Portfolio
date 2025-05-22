@@ -50,12 +50,13 @@ export default function ContactForm() {
 
       console.log('Sending email with params:', templateParams);
 
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+      
       // Send email using EmailJS
       const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        templateParams,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+        templateParams
       );
 
       console.log('Email sent successfully:', response);
