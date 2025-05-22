@@ -12,7 +12,18 @@ export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+    if (typeof window !== 'undefined') {
+      // Only initialize on client side
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+      
+      // Debug: Log environment variables to console
+      console.log('EmailJS Config:', {
+        serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? 'Set' : 'Not set',
+        recipientEmail: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL
+      });
+    }
   }, []);
 
   const onSubmit = async (data) => {
@@ -32,11 +43,14 @@ export default function ContactForm() {
     setIsSubmitting(true);
     
     try {
-      // Basic validation
-      if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 
-          !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 
-          !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
-        throw new Error('Missing required EmailJS configuration. Please check your environment variables.');
+      // Basic validation with more detailed error messages
+      const missingVars = [];
+      if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID) missingVars.push('NEXT_PUBLIC_EMAILJS_SERVICE_ID');
+      if (!process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID) missingVars.push('NEXT_PUBLIC_EMAILJS_TEMPLATE_ID');
+      if (!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) missingVars.push('NEXT_PUBLIC_EMAILJS_PUBLIC_KEY');
+      
+      if (missingVars.length > 0) {
+        throw new Error(`Missing required EmailJS configuration variables: ${missingVars.join(', ')}. Please check your .env.local file.`);
       }
       
       const templateParams = {
@@ -50,14 +64,21 @@ export default function ContactForm() {
 
       console.log('Sending email with params:', templateParams);
 
+      // Re-initialize emailjs with the public key
       emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
       
       // Send email using EmailJS
+      console.log('Sending email with template ID:', process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID);
+      console.log('Using service ID:', process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID);
+      
       const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        templateParams
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY // Pass public key as fourth parameter
       );
+      
+      console.log('EmailJS Response:', response);
 
       console.log('Email sent successfully:', response);
       reset();

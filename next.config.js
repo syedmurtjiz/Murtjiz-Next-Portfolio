@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // This ensures environment variables are available on the client side
-  // when prefixed with NEXT_PUBLIC_
+  // Environment variables with NEXT_PUBLIC_ are automatically exposed to the browser
+  // No need to manually set them in the config
   env: {
-    NEXT_PUBLIC_EMAILJS_SERVICE_ID: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-    NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-    NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
-    NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL,
+    // Keep this empty or remove it
   },
 }
 

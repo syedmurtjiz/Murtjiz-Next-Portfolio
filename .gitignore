@@ -37,4 +37,19 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# environment variables
+.env*.local
+.env
+.env.development
+.env.test
+.env.production
+
+# local env files (do not commit any file with secrets!)
+*.local
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
