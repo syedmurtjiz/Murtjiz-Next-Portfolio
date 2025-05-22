@@ -117,16 +117,16 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
     opacity: 1,
     y: 0,
     transition: {
-      type: 'spring',
-      stiffness: 100,
-      damping: 15,
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1]
     },
-  },
+  }),
 };
 
 const iconVariants = {
@@ -145,95 +145,113 @@ export default function Projects() {
   // Component logic here
 
   return (
-    <div
-      className="p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900"
-    >
-      <div className=" rounded-xl p-8 md:p-12 ">
-        {/* Subtle Glow Effect */}
-        <div className="rotate-45 -z-10 blur-3xl max-w-3xl mx-auto"></div>
-
+    <section className="w-full bg-gray-900 py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="text-center mb-12"
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-extrabold text-white sm:text-4xl"
           >
             <TypewriterText text="Portfolio Highlights" id="projects-heading" />
+            <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+              Explore my latest projects and case studies
+            </p>
           </motion.div>
+        </div>
 
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:grid-cols-3"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {projects.map((project, index) => (
-              <motion.article
-                key={index}
-                variants={cardVariants}
-                whileHover={{ scale: 1.02, boxShadow: '0 10px 20px rgba(0, 0, 0, 0.2)' }}
-                className="relative p-5 rounded-xl transition-all duration-300 group border text-white cursor-pointer hover:shadow-xl hover:scale-[1.02]"
-                aria-labelledby={`project-title-${index}`}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-sm" />
-                <div className="relative z-10">
-                  <div className="relative h-48 w-full mb-5 overflow-hidden rounded-lg group/image">
-                    <Image
-                      src={project.image}
-                      alt={`${project.title} screenshot`}
-                      fill
-                      className="object-cover transition-transform duration-400 group-hover/image:scale-103"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      priority={index === 0}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center space-x-4 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 bg-gray-900/60 rounded-lg">
+        <motion.div
+          className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {projects.map((project, index) => (
+            <motion.article
+              key={index}
+              custom={index}
+              variants={cardVariants}
+              className="group relative overflow-hidden rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10"
+              whileHover={{ y: -5 }}
+              aria-labelledby={`project-title-${index}`}
+            >
+              <div className="relative h-48 sm:h-52 md:h-56 w-full overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={`${project.title} screenshot`}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  priority={index < 3}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 w-full">
+                    <div className="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                       <motion.a
                         href={project.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         variants={iconVariants}
-                        whileHover={{ scale: 1.2 }}
-                        className="text-indigo-300 hover:text-indigo-200"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg"
                         aria-label={`Visit live demo of ${project.title}`}
                       >
-                        <FaExternalLinkAlt size={24} />
+                        <FaExternalLinkAlt size={16} />
                       </motion.a>
                       <motion.a
                         href={project.sourceLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         variants={iconVariants}
-                        whileHover={{ scale: 1.2 }}
-                        className="text-gray-200 hover:text-gray-100"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 text-white shadow-lg"
                         aria-label={`View source code of ${project.title}`}
                       >
-                        <FaGithub size={24} />
+                        <FaGithub size={18} />
                       </motion.a>
                     </div>
                   </div>
-                  <h3
-                    id={`project-title-${index}`}
-                    className="text-xl font-semibold mb-2 text-white"
-                  >
-                    {project.title}
-                  </h3>
-                  <p className="mb-4 text-white/30">
-                    {project.description}
-                  </p>
-                  <div className="flex justify-center gap-4">
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      className="text-xs sm:text-sm font-medium transition-colors hover:text-indigo-300"
-                    >
-                      View Details
-                    </Link>
-                  </div>
                 </div>
-              </motion.article>
-            ))}
-          </motion.div>
-        
+              </div>
+              <div className="p-5 md:p-6">
+                <h3
+                  id={`project-title-${index}`}
+                  className="text-lg md:text-xl font-bold mb-2 text-white line-clamp-2"
+                >
+                  {project.title}
+                </h3>
+                <p className="text-gray-300 text-sm md:text-base mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech, i) => (
+                    <span 
+                      key={i}
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-900/30 text-indigo-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors flex items-center"
+                  >
+                    View Details
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
 }
