@@ -16,28 +16,46 @@ export default function ContactForm() {
   }, []);
 
   const onSubmit = async (data) => {
+    console.log('Form submitted with data:', data);
+    console.log('Environment variables:', {
+      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ? 'Set' : 'Not set',
+      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ? 'Set' : 'Not set',
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? 'Set' : 'Not set',
+      recipientEmail: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL ? 'Set' : 'Not set'
+    });
+    
     setIsSubmitting(true);
     try {
       const templateParams = {
         from_name: `${data.firstName} ${data.lastName}`,
         from_email: data.email,
-        to_email: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL,
+        to_email: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL || 'murtjiznaqvi@gmail.com',
         phone: data.phone,
         message: data.message,
-        reply_to: data.email  // This ensures the reply button in email clients works correctly
+        reply_to: data.email
       };
 
-      await emailjs.send(
+      console.log('Sending email with params:', templateParams);
+
+      const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        templateParams
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
       );
 
+      console.log('Email sent successfully:', response);
       reset();
       alert('Your message has been sent successfully! I\'ll get back to you soon.');
     } catch (error) {
-      console.error('Email sending failed:', error);
-      alert('Failed to send message. Please try again or contact me directly at murtjiznaqvi@gmail.com');
+      console.error('Email sending failed:', {
+        error,
+        message: error.message,
+        status: error.status,
+        text: error.text
+      });
+      
+      alert(`Failed to send message. ${error.message || 'Please try again or contact me directly at murtjiznaqvi@gmail.com'}`);
     } finally {
       setIsSubmitting(false);
     }
