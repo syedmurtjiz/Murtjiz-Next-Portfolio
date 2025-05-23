@@ -4,6 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 import TypewriterText from '../TypewriterText';
 
 // Project data
@@ -142,11 +148,11 @@ const iconVariants = {
 };
 
 export default function Projects() {
-  // Component logic here
-
   return (
-    <section className="w-full max-w-6xl mx-auto border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-      <div className="">
+    <section className="w-full max-w-6xl mx-auto border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
+      
+      <div className="relative z-10">
         <div className="text-center mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -161,21 +167,47 @@ export default function Projects() {
           </motion.div>
         </div>
 
-        <motion.div
-          className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {projects.map((project, index) => (
-            <motion.article
-              key={index}
-              custom={index}
-              variants={cardVariants}
-              className="group relative overflow-hidden rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10"
-              whileHover={{ y: -5 }}
-              aria-labelledby={`project-title-${index}`}
-            >
+        <div className="relative px-2 py-6">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={30}
+            slidesPerView={1}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+            }}
+            navigation={false}
+            pagination={{
+              clickable: true,
+              el: '.swiper-pagination',
+              type: 'bullets',
+              dynamicBullets: true
+            }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            className="w-full py-8 px-2"
+          >
+            {projects.map((project, index) => (
+              <SwiperSlide key={index}>
+                <motion.article
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative overflow-hidden rounded-2xl bg-gray-800/80 backdrop-blur-sm border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 h-full"
+                  whileHover={{ y: -5 }}
+                  aria-labelledby={`project-title-${index}`}
+                >
               <div className="relative h-48 sm:h-52 md:h-56 w-full overflow-hidden">
                 <Image
                   src={project.image}
@@ -247,10 +279,15 @@ export default function Projects() {
                     </svg>
                   </Link>
                 </div>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
+                  </div>
+                </motion.article>
+              </SwiperSlide>
+            ))}
+            
+            {/* Pagination */}
+            <div className="swiper-pagination !relative mt-6"></div>
+          </Swiper>
+        </div>
       </div>
     </section>
   );
