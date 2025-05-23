@@ -78,12 +78,10 @@ const iconVariants = {
 
 export default function Specialization() {
   return (
-    <section
-    className="p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden 
-    transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900"
-    
-  >
-      <div className="">
+    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
+      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
+      
+      <div className="relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -93,9 +91,9 @@ export default function Specialization() {
           <TypewriterText
             text="Areas of Expertise"
             id="specializations-heading"
-            className="text-4xl font-bold text-gray-900 tracking-tight"
+            className="text-3xl font-extrabold text-white sm:text-4xl"
           />
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
             Specialized skills delivering innovative, high-quality solutions for modern web development challenges.
           </p>
         </motion.div>
@@ -143,8 +141,6 @@ export default function Specialization() {
             </motion.article>
           ))}
         </motion.div>
-
-
       </div>
     </section>
   );
