@@ -120,30 +120,23 @@ const timelineDotVariants = {
  */
 export default function EducationExperience() {
   return (
-    <div
-      className="p-4 sm:p-6 md:p-8 lg:p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden border border-gray-200 text-gray-900 transition-all duration-500 hover:scale-[1.01] md:hover:scale-[1.02] focus-within:ring-2 focus-within:ring-blue-400"
-      id="education-experience"
-      aria-labelledby="education-experience-heading"
-      role="region"
-    >
-      {/* Subtle Glow Effect */}
-      <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 opacity-50 blur-3xl rotate-45 -z-10"></div>
+    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
+      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
+      
       <div className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <TypewriterText
-            text="Academic & Professional Background"
-            id="education-experience-heading"
-            className="text-3xl sm:text-4xl font-extrabold mb-4"
-          />
-          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-            My educational journey and professional growth
-          </p>
-        </motion.div>
+        <div className="text-center mb-12">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5 }}
+                          className="text-3xl font-extrabold text-white sm:text-4xl"
+                        >
+                          <TypewriterText text="Academic & Professional Background" id="education-experience-heading" />
+                          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+                          My educational journey and professional growth
+                          </p>
+                        </motion.div>
+                      </div>
 
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
@@ -260,6 +253,6 @@ export default function EducationExperience() {
           </motion.article>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 }

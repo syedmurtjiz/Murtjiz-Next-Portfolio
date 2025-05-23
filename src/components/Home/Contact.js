@@ -121,21 +121,18 @@ export default function ContactForm() {
       <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
       
       <div className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="text-center mb-12"
-        >
-          <TypewriterText 
-            text="Get in Touch" 
-            id="contact-heading" 
-            className="text-3xl font-extrabold text-white sm:text-4xl"
-          />
-          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-            I specialize in crafting elegant, user-focused digital solutions. Reach out to discuss your project or explore collaboration opportunities.
-          </p>
-        </motion.div>
+              <div className="text-center mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-3xl font-extrabold text-white sm:text-4xl"
+                >
+                  <TypewriterText text="Get in Touch" id="contact-heading" />
+                  <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+                  I specialize in crafting elegant, user-focused digital solutions. Reach out to discuss your project or explore collaboration opportunities.                  </p>
+                </motion.div>
+              </div>
 
         <div className="flex flex-col lg:flex-row gap-8 relative z-10">
           <form
