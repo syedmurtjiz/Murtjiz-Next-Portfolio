@@ -82,21 +82,19 @@ export default function Specialization() {
       <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
       
       <div className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="text-center mb-12"
-        >
-          <TypewriterText
-            text="Areas of Expertise"
-            id="specializations-heading"
-            className="text-3xl font-extrabold text-white sm:text-4xl"
-          />
-          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-            Specialized skills delivering innovative, high-quality solutions for modern web development challenges.
-          </p>
-        </motion.div>
+        <div className="text-center mb-12">
+                                <motion.div
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.5 }}
+                                  className="text-3xl font-extrabold text-white sm:text-4xl"
+                                >
+                                  <TypewriterText text="Areas of Expertise" id="specializations-heading" />
+                                  <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+                                  Specialized skills delivering innovative, high-quality solutions for modern web development challenges.
+                                  </p>
+                                </motion.div>
+                              </div>
 
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
