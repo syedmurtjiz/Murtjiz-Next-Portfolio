@@ -27,20 +27,23 @@ export default function Skills() {
  
 
   return (
-    <div className="p-6 md:p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden transform transition-all duration-500 border border-gray-200 text-gray-900">
-      <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5"></div>
-
-      <div className="text-center mb-10">
-        <TypewriterText text="My Skills" />
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed text-gray-300"
-        >
-          I bring your ideas to life through unique, cutting-edge web projects that captivate and inspire both you and your audience.
-        </motion.p>
-      </div>
+    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
+      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
+      
+      <div className="relative z-10">
+        <div className="text-center mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-extrabold text-white sm:text-4xl"
+          >
+            <TypewriterText text="My Skills" id="skills-heading" />
+            <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+              I bring your ideas to life through unique, cutting-edge web projects that captivate and inspire.
+            </p>
+          </motion.div>
+        </div>
 
       <div className="relative px-2 py-6">
         <Swiper
@@ -55,8 +58,13 @@ export default function Skills() {
               slidesPerView: 3,
             },
           }}
-          navigation
-          pagination={{ clickable: true }}
+          navigation={false}
+          pagination={{
+            clickable: true,
+            el: '.skills-pagination',
+            type: 'bullets',
+            dynamicBullets: true
+          }}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
@@ -105,8 +113,12 @@ export default function Skills() {
               </motion.div>
             </SwiperSlide>
           ))}
+          
+          {/* Pagination */}
+          <div className="skills-pagination !relative mt-6"></div>
         </Swiper>
       </div>
     </div>
+  </section>
   );
 }

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaTrophy, FaSuitcase, FaCalendar, FaCrown } from 'react-icons/fa';
 import Image from 'next/image';
+import TypewriterText from '../TypewriterText';
 
 export default function Home() {
   const [hoveredProject, setHoveredProject] = useState(null);
@@ -50,16 +51,18 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-6">
 
-      {/* Header Section */}
-      <motion.h1
-        className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Achievements
-      </motion.h1>
-
+      <div className="text-center mb-12">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="text-3xl font-extrabold text-white sm:text-4xl"
+                      >
+                        <TypewriterText text="Achievements" id="achievements-heading" />
+                        <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+                        I specialize in crafting elegant, user-focused digital solutions. Reach out to discuss your project or explore collaboration opportunities.                  </p>
+                      </motion.div>
+                    </div>
       {/* Projects Grid */}
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 w-full max-w-6xl"
