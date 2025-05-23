@@ -83,7 +83,7 @@ export default function Hero() {
     <div className="rounded-2xl p-12 md:p-16 flex flex-col md:flex-row items-center 
       space-y-8 md:space-y-0 md:space-x-12 w-full max-w-6xl mx-auto 
       transform transition-all duration-500 hover:scale-[1.02] 
-      relative overflow-hidden mt-16 md:mt-32 py-16 md:py-24
+      relative overflow-hidden mt-24 md:mt-32 py-16 md:py-24
       border border-gray-200 text-gray-900">
       <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 opacity-50 blur-3xl rotate-45 -z-10"></div>
 
