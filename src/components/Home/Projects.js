@@ -149,8 +149,8 @@ const iconVariants = {
 
 export default function Projects() {
   return (
-    <section className="w-full max-w-6xl mx-auto border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
+    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
+      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
       
       <div className="relative z-10">
         <div className="text-center mb-12">
