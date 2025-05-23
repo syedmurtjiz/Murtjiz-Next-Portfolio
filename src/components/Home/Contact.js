@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { motion } from 'framer-motion';
 import { FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaSpinner } from 'react-icons/fa';
 import Link from 'next/link';
 import TypewriterText from '../TypewriterText';
@@ -116,24 +117,25 @@ export default function ContactForm() {
   };
 
   return (
-    <div
-      className="p-10 rounded-2xl w-full max-w-6xl mx-auto relative overflow-hidden 
-      transform transition-all duration-500 hover:scale-[1.02] border border-gray-200 text-gray-900"
-      id="contact"
-      aria-labelledby="contact-heading"
-      role="region"
-    >
-      <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-pink-500/10 opacity-50 blur-3xl rotate-45 -z-10"></div>
-      <div className="max-w-6xl mx-auto rounded-xl p-8 md:p-12">
-        <div className="absolute inset-0 blur-3xl opacity-40 z-0" />
-
-        <div className="text-center mb-8">
-          <TypewriterText text="Get in Touch" id="contact-heading" />
-        </div>
-
-        <p className="mb-6 text-gray-600">
-          I specialize in crafting elegant, user-focused digital solutions. Reach out to discuss your project or explore collaboration opportunities.
-        </p>
+    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
+      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
+      
+      <div className="relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="text-center mb-12"
+        >
+          <TypewriterText 
+            text="Get in Touch" 
+            id="contact-heading" 
+            className="text-3xl font-extrabold text-white sm:text-4xl"
+          />
+          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
+            I specialize in crafting elegant, user-focused digital solutions. Reach out to discuss your project or explore collaboration opportunities.
+          </p>
+        </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-8 relative z-10">
           <form
@@ -286,6 +288,6 @@ export default function ContactForm() {
           </aside>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
