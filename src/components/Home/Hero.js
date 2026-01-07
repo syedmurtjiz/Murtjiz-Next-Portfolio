@@ -3,13 +3,18 @@
 import Image from 'next/image';
 import { FaGithub, FaGlobe } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Tilt from 'react-parallax-tilt';
 import TypewriterText from '@/components/TypewriterText';
 import Magnetic from '@/components/shared/Magnetic';
 
 export default function Hero() {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, -50]);
+  const y2 = useTransform(scrollY, [0, 500], [0, 50]);
+  const rotate = useTransform(scrollY, [0, 500], [0, 5]);
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,6 +50,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
+          style={{ y: y1, rotate }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="relative h-80 w-64 md:h-[450px] md:w-[350px] group z-20"
         >
@@ -57,7 +63,7 @@ export default function Hero() {
             gyroscope={true}
             className="h-full w-full"
           >
-            <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl dark:shadow-white/5 premium-shadow">
+            <div className="relative h-full w-full rounded-2xl overflow-hidden shadow-2xl dark:shadow-white/5 premium-shadow glass-card">
               <Image
                 src="/syed.jpeg"
                 alt="Profile of Web Designer and Developer"
@@ -73,12 +79,15 @@ export default function Hero() {
         </motion.div>
 
         {/* Text and Buttons */}
-        <div className="flex-1 text-center md:text-left">
+        <motion.div
+          style={{ y: y2 }}
+          className="flex-1 text-center md:text-left"
+        >
           {/* Typewriter Heading */}
           <TypewriterText
             text="Architecting the next generation of digital excellence."
             as="h1"
-            className="text-5xl md:text-7xl font-black text-[#111827] dark:text-white tracking-tighter-heading line-height-tight mb-8"
+            className="text-5xl md:text-7xl font-black text-[#111827] dark:text-white tracking-tighter-heading line-height-tight mb-8 text-shimmer"
             stagger={0.06}
           />
 
@@ -138,7 +147,7 @@ export default function Hero() {
               </div>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
