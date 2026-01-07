@@ -8,6 +8,8 @@ import Specialization from "@/components/Home/Specialization";
 import Education from "@/components/Home/Education";
 import Contact from "@/components/Home/Contact";
 import ScrollAnimation from "@/components/ScrollAnimation";
+import Marquee from "@/components/shared/Marquee";
+
 export default function Index() {
   return (
     <div className="space-y-16 md:space-y-24">
@@ -18,6 +20,9 @@ export default function Index() {
       <ScrollAnimation>
         <Skills />
       </ScrollAnimation>
+
+      <Marquee text="High Performance // Immersive UI // Scalable Systems // Syed Murtjiz" direction="right" speed={40} />
+
       <ScrollAnimation>
         <Projects />
       </ScrollAnimation>
