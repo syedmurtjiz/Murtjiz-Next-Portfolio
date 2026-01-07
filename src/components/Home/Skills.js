@@ -1,124 +1,76 @@
-'use client';
-
-import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FaHtml5, FaJsSquare, FaReact, FaCss3Alt, FaDraftingCompass, FaLaptopCode, FaBootstrap } from 'react-icons/fa';
 import { SiTailwindcss, SiNextdotjs } from 'react-icons/si';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import TypewriterText from '../TypewriterText';
+import ScrollReveal from '../shared/ScrollReveal';
 
 export default function Skills() {
   const skills = [
-    { name: 'HTML', percentage: 100, icon: FaHtml5, color: '#E34F26' },
-    { name: 'JavaScript', percentage: 85, icon: FaJsSquare, color: '#F7DF1E' },
-    { name: 'React', percentage: 80, icon: FaReact, color: '#61DAFB' },
-    { name: 'CSS', percentage: 90, icon: FaCss3Alt, color: '#1572B6' },
-    { name: 'Tailwind CSS', percentage: 100, icon: SiTailwindcss, color: '#38BDF8' },
-    { name: 'Bootstrap', percentage: 100, icon: FaBootstrap, color: '#7952B3' },
-    { name: 'Website Design', percentage: 75, icon: FaDraftingCompass, color: '#FF7F50' },
-    { name: 'Computer Science', percentage: 70, icon: FaLaptopCode, color: '#4CAF50' },
-    { name: 'Next.js', percentage: 80, icon: SiNextdotjs, color: '#000000' },
+    { name: 'Architecture', percentage: 95, icon: SiNextdotjs, color: '#000000' },
+    { name: 'Core Interface', percentage: 98, icon: FaReact, color: '#61DAFB' },
+    { name: 'Logic Layer', percentage: 92, icon: FaJsSquare, color: '#F7DF1E' },
+    { name: 'Styling Engine', percentage: 100, icon: SiTailwindcss, color: '#38BDF8' },
+    { name: 'Cloud Native', percentage: 88, icon: FaLaptopCode, color: '#4CAF50' },
+    { name: 'Visual Design', percentage: 85, icon: FaDraftingCompass, color: '#FF7F50' },
   ];
 
- 
-
   return (
-    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
-      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
-      
-      <div className="relative z-10">
-        <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl font-extrabold text-white sm:text-4xl"
-          >
-            <TypewriterText text="My Skills" id="skills-heading" />
-            <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-              I bring your ideas to life through unique, cutting-edge web projects that captivate and inspire.
-            </p>
-          </motion.div>
+    <section className="w-full relative py-32 bg-[var(--background-contrast)] transition-colors duration-300 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-24 gap-12">
+          <div className="max-w-3xl">
+            <span className="text-[var(--primary)] font-black tracking-wide-label text-xs mb-6 block uppercase">Technical DNA</span>
+            <TypewriterText
+              text="The Modern Stack"
+              id="skills-heading"
+              className="text-5xl md:text-8xl font-black text-[#111827] dark:text-white tracking-tighter-heading line-height-tight"
+              as="h2"
+            />
+          </div>
+          <p className="max-w-md text-xl text-gray-500 dark:text-gray-400 line-height-relaxed font-medium mb-4">
+            A highly-specialized toolkit optimized for performance, scalability, and uncompromising user experiences.
+          </p>
         </div>
 
-      <div className="relative px-2 py-6">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
-          spaceBetween={30}
-          slidesPerView={1}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 3,
-            },
-          }}
-          navigation={false}
-          pagination={{
-            clickable: true,
-            el: '.skills-pagination',
-            type: 'bullets',
-            dynamicBullets: true
-          }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          className="w-full py-8 px-2"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {skills.map((skill, index) => (
-            <SwiperSlide key={index}>
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.03 }}
-                className="relative rounded-2xl p-6 shadow-xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 h-full flex flex-col items-center"
-              >
-                <div className="relative flex justify-center mb-6">
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.8 }}
-                    className="p-4 rounded-full bg-gray-800/50 border border-gray-700"
-                  >
-                    <skill.icon 
-                      className="w-16 h-16 md:w-20 md:h-20" 
-                      style={{ color: skill.color }} 
-                    />
-                  </motion.div>
+            <ScrollReveal key={index} delay={index * 0.1}>
+              <div className="group relative p-10 rounded-[2.5rem] bg-white dark:bg-[#1c1210] border border-black/5 dark:border-white/5 transition-all duration-500 hover:border-[var(--primary)]/30 premium-shadow h-full overflow-hidden">
+                {/* Abstract Background Glow */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--primary)] opacity-0 group-hover:opacity-5 blur-[60px] transition-opacity duration-500" />
+
+                <div className="flex items-center justify-between mb-12">
+                  <div className="w-16 h-16 rounded-2xl bg-gray-50 dark:bg-white/5 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-500">
+                    <skill.icon style={{ color: skill.color }} />
+                  </div>
+                  <span className="text-4xl font-black text-gray-100 dark:text-white/5 tracking-tighter">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                 </div>
-                <h3 className="text-xl font-semibold text-center mb-4 text-white">
+
+                <h3 className="text-2xl font-black text-[#111827] dark:text-white mb-4 tracking-tighter-heading">
                   {skill.name}
                 </h3>
-                <div className="w-full h-2.5 rounded-full bg-gray-700/50 mb-2 overflow-hidden">
-                  <motion.div
-                    className="h-full rounded-full"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.percentage}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.5, ease: 'easeOut', delay: 0.3 }}
-                    style={{ background: `linear-gradient(90deg, ${skill.color} 0%, ${skill.color}80 100%)` }}
-                  />
+
+                <div className="space-y-4">
+                  <div className="flex justify-between items-end">
+                    <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase">Proficiency</span>
+                    <span className="text-lg font-black text-[var(--primary)]">{skill.percentage}%</span>
+                  </div>
+                  <div className="h-1 w-full bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${skill.percentage}%` }}
+                      transition={{ duration: 1.5, ease: "circOut" }}
+                      className="h-full bg-[var(--primary)]"
+                    />
+                  </div>
                 </div>
-                <p className="text-lg font-medium mt-2 text-gray-300">
-                  {skill.percentage}%
-                </p>
-              </motion.div>
-            </SwiperSlide>
+              </div>
+            </ScrollReveal>
           ))}
-          
-          {/* Pagination */}
-          <div className="skills-pagination !relative mt-6"></div>
-        </Swiper>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
   );
 }
