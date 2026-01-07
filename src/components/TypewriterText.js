@@ -1,48 +1,35 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 
-export const TypewriterText = ({ text, className = '', id }) => {
-  const elementRef = useRef(null);
-  const [shouldAnimate, setShouldAnimate] = useState(false);
+export const TypewriterText = ({
+  text,
+  className = '',
+  id,
+  as: Tag = 'h2',
+  once = true,
+  delay = 0,
+  stagger = 0.05
+}) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once });
   const characters = text.split('');
-
-  const { scrollYProgress } = useScroll({
-    target: elementRef,
-    offset: ["0 1", "1 0"]
-  });
-
-  const opacity = useTransform(scrollYProgress, 
-    [0, 0.1, 0.9, 1],
-    [0, 1, 1, 0]
-  );
-
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (latest) => {
-      if (latest > 0.1 && !shouldAnimate) {
-        setShouldAnimate(true);
-      } else if (latest < 0.1) {
-        setShouldAnimate(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [scrollYProgress, shouldAnimate]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
+        staggerChildren: stagger,
+        delayChildren: delay,
         when: "beforeChildren",
       },
     },
   };
 
   const charVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         type: "spring",
@@ -53,28 +40,35 @@ export const TypewriterText = ({ text, className = '', id }) => {
   };
 
   return (
-    <motion.h2
+    <motion.div
+      ref={ref}
+      className={`inline-block ${className}`}
       id={id}
-      ref={elementRef}
-      style={{ opacity }}
-      variants={containerVariants}
-      initial="hidden"
-      animate={shouldAnimate ? "visible" : "hidden"}
-      className={`text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-indigo-500 mb-12 text-center drop-shadow-lg relative inline-block ${className}`}
     >
-      {characters.map((char, index) => (
-        <motion.span key={index} variants={charVariants}>
-          {char}
-        </motion.span>
-      ))}
-      {shouldAnimate && (
+      <Tag className="sr-only">{text}</Tag>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        aria-hidden="true"
+        className="flex flex-wrap justify-center sm:justify-start"
+      >
+        {characters.map((char, index) => (
+          <motion.span
+            key={index}
+            variants={charVariants}
+            className="inline-block"
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </motion.span>
+        ))}
         <motion.span
-          className="inline-block w-1 h-8 md:h-10 bg-purple-400 ml-1"
+          className="inline-block w-[3px] h-[0.9em] bg-[var(--primary)] ml-1 align-middle"
           animate={{ opacity: [1, 0, 1] }}
           transition={{ repeat: Infinity, duration: 0.8 }}
         />
-      )}
-    </motion.h2>
+      </motion.div>
+    </motion.div>
   );
 };
 
