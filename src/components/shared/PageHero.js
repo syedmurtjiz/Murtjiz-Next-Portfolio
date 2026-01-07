@@ -15,57 +15,52 @@ export default function PageHero({ title, currentPage, children }) {
   return (
     <div className="relative w-full">
       {/* Hero Section with Background */}
-      <section className="relative h-[80vh] w-screen left-1/2 -translate-x-1/2">
+      <section className="relative h-[65vh] w-full overflow-hidden">
         {/* Background Image with Parallax Animation */}
         <motion.div
           className="absolute inset-0"
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%'],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'linear',
-          }}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
           style={{
             backgroundImage: `url('/bg.webp')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            width: '100vw',
-            height: '100%',
-            position: 'absolute',
-            left: '50%',
-            transform: 'translateX(-50%)',
           }}
         >
-          {/* Gradient Overlay for Better Text Contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+          {/* Elite Dark Overlay */}
+          <div className="absolute inset-0 bg-[#0d0907]/90 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0d0907]" />
         </motion.div>
 
         {/* Hero Content */}
-        <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-white sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-white max-w-7xl mx-auto w-full">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
             className="text-center"
           >
-            {/* Heading with Typewriter Effect */}
-            <div className="mb-4">
-              <TypewriterText text={title} className="text-5xl font-bold" />
+            {/* Heading with Elite Type */}
+            <div className="mb-6">
+              <TypewriterText
+                text={title}
+                className="text-6xl md:text-8xl font-black tracking-tighter-heading line-height-tight"
+              />
             </div>
 
             {/* Breadcrumb */}
-            <motion.p
+            <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.3 }}
-              className="text-lg text-white/80 md:text-xl"
+              className="flex items-center justify-center gap-2 text-[var(--primary)] text-xs font-black tracking-wide-label"
             >
-              Home <MdKeyboardArrowRight className="inline-block mx-2 text-gray-400" size={20} /> {currentPage}
-            </motion.p>
+              <span className="opacity-40">Home</span>
+              <MdKeyboardArrowRight size={16} className="opacity-40" />
+              <span>{currentPage}</span>
+            </motion.div>
           </motion.div>
         </div>
       </section>
