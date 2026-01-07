@@ -118,140 +118,118 @@ const timelineDotVariants = {
  * EducationExperience component displaying academic and professional background
  * @returns {JSX.Element} The rendered EducationExperience section
  */
-export default function EducationExperience() {
-  return (
-    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
-      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
-      
-      <div className="relative z-10">
-        <div className="text-center mb-12">
-                        <motion.div
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5 }}
-                          className="text-3xl font-extrabold text-white sm:text-4xl"
-                        >
-                          <TypewriterText text="Academic & Professional Background" id="education-experience-heading" />
-                          <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-                          My educational journey and professional growth
-                          </p>
-                        </motion.div>
-                      </div>
+import { useScroll, useSpring, useTransform } from 'framer-motion';
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Education Column */}
-          <motion.article
-            variants={itemVariants}
-            className="p-4 sm:p-5 md:p-6 rounded-lg border border-gray-200 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
-            aria-labelledby="education-heading"
-            tabIndex={0}
+export default function EducationExperience() {
+  const containerRef = React.useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end end"]
+  });
+
+  const pathLength = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <section ref={containerRef} className="w-full relative bg-[var(--background-contrast)] overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mb-20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center"
           >
-            <h3
-              id="education-heading"
-              className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-6 text-white flex items-center gap-2 border-b border-blue-400/30 pb-2 sm:pb-3"
-            >
-              <FaGraduationCap className="text-purple-400 text-lg sm:text-xl" aria-hidden="true" />
-              Education
-            </h3>
+            <span className="text-[var(--primary)] font-bold tracking-wide-label text-xs mb-4 block">Chronicle</span>
+            <TypewriterText
+              text="Evolution & Heritage"
+              id="education-experience-heading"
+              className="text-4xl md:text-5xl font-black text-[#111827] dark:text-[#f5e6d3] tracking-tighter-heading line-height-tight mb-4"
+              as="h2"
+            />
+            <p className="max-w-xl mx-auto text-gray-600 dark:text-gray-400 text-lg line-height-relaxed">
+              A timeline of academic milestones and professional milestones that define my creative trajectory.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
+          {/* Vertical Timeline Divider for LG screens */}
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 dark:bg-white/10 -translate-x-1/2 overflow-hidden">
+            <motion.div
+              style={{ height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]) }}
+              className="w-full bg-[var(--primary)] shadow-[0_0_15px_var(--primary)]"
+            />
+          </div>
+
+          {/* Education Column */}
+          <div className="space-y-12">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#1a100e] shadow-xl flex items-center justify-center text-[var(--primary)] border border-gray-100 dark:border-white/5">
+                <FaGraduationCap size={24} />
+              </div>
+              <h3 className="text-2xl font-black text-[#111827] dark:text-white tracking-tighter-heading">Foundations</h3>
+            </div>
+
             {education.map((edu, index) => (
               <motion.div
                 key={index}
-                className="relative pl-6 sm:pl-8 mb-4 sm:mb-6 last:mb-0"
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="relative pl-8 group"
               >
-                <motion.div
-                  className="absolute left-0 top-1 sm:top-1.5 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full shadow-sm"
-                  variants={timelineDotVariants}
-                />
-                <div className="absolute left-[3.5px] sm:left-[5.5px] top-3 sm:top-5 h-[calc(100%-0.75rem)] sm:h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
-                <p className="text-sm sm:text-base font-medium text-white">{edu.title}</p>
-                <p className="text-xs sm:text-sm mt-1 text-white/80">{edu.institution}</p>
-                <p className="text-xs mt-1 text-blue-600">
-                  {edu.date} • {edu.location}
-                </p>
+                <div className="absolute left-0 top-2 w-3 h-3 rounded-full bg-white dark:bg-[#120a08] border-2 border-[var(--primary)] group-hover:scale-150 transition-transform duration-300 z-10" />
+                <span className="text-[10px] font-black tracking-wide-label text-[var(--primary)] mb-1 block">
+                  {edu.date}
+                </span>
+                <h4 className="text-xl font-bold text-[#111827] dark:text-white tracking-tighter-heading mb-1">
+                  {edu.title}
+                </h4>
+                <p className="text-gray-500 dark:text-gray-400 font-medium mb-1">{edu.institution}</p>
+                <p className="text-xs text-gray-400">{edu.location}</p>
               </motion.div>
             ))}
-          </motion.article>
+          </div>
 
           {/* Experience Column */}
-          <motion.article
-            variants={itemVariants}
-            className="p-4 sm:p-5 md:p-6 rounded-lg border border-white-700/20 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
-            aria-labelledby="experience-heading"
-            tabIndex={0}
-          >
-            <h3
-              id="experience-heading"
-              className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-6 text-gray-100 flex items-center gap-2 border-b border-blue-400/30 pb-2 sm:pb-3"
-            >
-              <FaCode className="text-blue-400 text-lg sm:text-xl" aria-hidden="true" />
-              Professional Experience
-            </h3>
-            {experience.map((exp, index) => (
-              <motion.div
-                key={index}
-                className="relative pl-6 sm:pl-8 mb-4 sm:mb-6 last:mb-0"
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-              >
-                <motion.div
-                  className="absolute left-0 top-1 sm:top-1.5 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full shadow-sm"
-                  variants={timelineDotVariants}
-                />
-                <div className="absolute left-[3.5px] sm:left-[5.5px] top-3 sm:top-5 h-[calc(100%-0.75rem)] sm:h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
-                <p className="text-sm sm:text-base font-medium text-gray-200">{exp.title}</p>
-                <p className="text-xs sm:text-sm mt-1 text-gray-400">{exp.details}</p>
-                <p className="text-xs mt-1 text-blue-300">
-                  {exp.date} | {exp.company}
-                </p>
-              </motion.div>
-            ))}
-          </motion.article>
+          <div className="space-y-12">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#1a100e] shadow-xl flex items-center justify-center text-[var(--primary)] border border-gray-100 dark:border-white/5">
+                <FaCode size={24} />
+              </div>
+              <h3 className="text-2xl font-black text-[#111827] dark:text-white tracking-tighter-heading">Impact</h3>
+            </div>
 
-          {/* Past Roles Column */}
-          <motion.article
-            variants={itemVariants}
-            className="p-4 sm:p-5 md:p-6 rounded-lg border border-white-700/20 hover:border-blue-400/30 transition-all duration-300 focus-within:ring-2 focus-within:ring-blue-400"
-            aria-labelledby="past-roles-heading"
-            tabIndex={0}
-          >
-            <h3
-              id="past-roles-heading"
-              className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-6 text-gray-100 flex items-center gap-2 border-b border-blue-400/30 pb-2 sm:pb-3"
-            >
-              <FaUserTie className="text-blue-400 text-lg sm:text-xl" aria-hidden="true" />
-              Previous Roles
-            </h3>
-            {pastRoles.map((role, index) => (
+            {experience.slice(0, 3).map((exp, index) => (
               <motion.div
                 key={index}
-                className="relative pl-6 sm:pl-8 mb-4 sm:mb-6 last:mb-0"
-                initial={{ opacity: 0, x: -15 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="relative pl-8 group"
               >
-                <motion.div
-                  className="absolute left-0 top-1 sm:top-1.5 w-2 sm:w-3 h-2 sm:h-3 bg-blue-400 rounded-full shadow-sm"
-                  variants={timelineDotVariants}
-                />
-                <div className="absolute left-[3.5px] sm:left-[5.5px] top-3 sm:top-5 h-[calc(100%-0.75rem)] sm:h-[calc(100%-1.25rem)] w-[2px] bg-blue-400/50" />
-                <p className="text-sm sm:text-base font-medium text-gray-200">{role.title}</p>
-                <p className="text-xs sm:text-sm mt-1 text-gray-400">{role.details}</p>
-                <p className="text-xs mt-1 text-blue-300">
-                  {role.date} | {role.company}
+                <div className="absolute left-0 top-2 w-3 h-3 rounded-full bg-white dark:bg-[#120a08] border-2 border-[var(--primary)] group-hover:scale-150 transition-transform duration-300 z-10" />
+                <div className="absolute left-1.5 top-5 bottom-0 w-px bg-gray-100 dark:bg-white/5 last:hidden" />
+                <span className="text-[10px] font-black tracking-wide-label text-[var(--primary)] mb-1 block">
+                  {exp.date} • {exp.company}
+                </span>
+                <h4 className="text-xl font-bold text-[#111827] dark:text-white tracking-tighter-heading mb-1">
+                  {exp.title}
+                </h4>
+                <p className="text-gray-500 dark:text-gray-400 text-sm line-height-relaxed">
+                  {exp.details}
                 </p>
               </motion.div>
             ))}
-          </motion.article>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
