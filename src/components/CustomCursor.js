@@ -16,6 +16,8 @@ const CustomCursor = () => {
     const followerX = useSpring(0, { damping: 25, stiffness: 150 });
     const followerY = useSpring(0, { damping: 25, stiffness: 150 });
 
+    const [magnetPos, setMagnetPos] = useState({ x: 0, y: 0, active: false });
+
     useEffect(() => {
         const checkMobile = () => {
             setIsMobile(window.innerWidth <= 1024);
@@ -38,20 +40,29 @@ const CustomCursor = () => {
 
         const handleHover = (e) => {
             const target = e.target;
-            const isClickable = target.tagName === 'A' ||
-                target.tagName === 'BUTTON' ||
-                target.closest('a') ||
-                target.closest('button') ||
-                target.classList.contains('hover-target');
+            const interactive = target.closest('a') || target.closest('button') || target.classList.contains('hover-target');
+
+            if (interactive) {
+                const rect = interactive.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                setMagnetPos({ x: centerX, y: centerY, active: true });
+                setIsHovering(true);
+            } else {
+                setMagnetPos({ x: 0, y: 0, active: false });
+                setIsHovering(false);
+            }
 
             const isTextElement = target.tagName === 'P' ||
                 target.tagName === 'H1' ||
                 target.tagName === 'H2' ||
                 target.tagName === 'H3' ||
-                target.tagName === 'SPAN';
+                target.tagName === 'SPAN' ||
+                target.tagName === 'H4' ||
+                target.tagName === 'H5' ||
+                target.tagName === 'H6';
 
-            setIsHovering(isClickable);
-            setIsText(isTextElement && !isClickable);
+            setIsText(isTextElement && !interactive);
         };
 
         window.addEventListener('mousemove', moveCursor);
@@ -74,24 +85,29 @@ const CustomCursor = () => {
         <div className="hidden lg:block">
             <motion.div
                 className="custom-cursor"
+                animate={{
+                    x: magnetPos.active ? magnetPos.x - 4 : cursorX.get(),
+                    y: magnetPos.active ? magnetPos.y - 4 : cursorY.get(),
+                }}
                 style={{
-                    x: cursorX,
-                    y: cursorY,
                     opacity: isVisible ? 1 : 0,
                     scale: isClicking ? 0.8 : (isHovering ? 1.5 : 1),
                 }}
             />
             <motion.div
                 className="custom-cursor-follower"
+                animate={{
+                    x: magnetPos.active ? magnetPos.x - 16 : followerX.get(),
+                    y: magnetPos.active ? magnetPos.y - 16 : followerY.get(),
+                }}
                 style={{
-                    x: followerX,
-                    y: followerY,
-                    opacity: isVisible ? (isText ? 0.2 : 0.5) : 0,
-                    scale: isClicking ? 1.2 : (isHovering ? 3 : (isText ? 4 : 1)),
-                    backgroundColor: isHovering ? 'var(--primary)' : (isText ? 'var(--primary)' : 'transparent'),
-                    borderColor: (isHovering || isText) ? 'transparent' : 'var(--primary)',
+                    opacity: isVisible ? (isText ? 1 : 0.5) : 0,
+                    scale: isClicking ? 1.2 : (isHovering ? 2.5 : (isText ? 1 : 1)),
+                    backgroundColor: isHovering ? 'transparent' : (isText ? 'var(--primary)' : 'transparent'),
+                    borderColor: isHovering ? 'var(--primary)' : (isText ? 'transparent' : 'var(--primary)'),
+                    borderWidth: isHovering ? '2px' : '1px',
                     mixBlendMode: (isHovering || isText) ? 'difference' : 'normal',
-                    borderRadius: isText ? '4px' : '50%',
+                    borderRadius: isText ? '2px' : '50%',
                     width: isText ? '2px' : '32px',
                     height: isText ? '32px' : '32px',
                 }}
