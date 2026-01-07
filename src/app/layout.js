@@ -3,6 +3,9 @@
 import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 import dynamic from 'next/dynamic';
+import { useState, useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
+import Preloader from "@/components/shared/Preloader";
 import SuppressHydrationWarning from '@/components/SuppressHydrationWarning';
 
 const Header = dynamic(() => import("@/components/Header"), { ssr: false });
@@ -25,9 +28,17 @@ const firaCode = Fira_Code({
 import ThemeProvider from '@/components/ThemeProvider';
 
 export default function RootLayout({ children }) {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <html lang="en" className={`${inter.variable} ${firaCode.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="bg-white dark:bg-[#120a08] text-gray-900 dark:text-white transition-colors duration-300 relative noise" suppressHydrationWarning>
+        <AnimatePresence mode="wait">
+          {isLoading && (
+            <Preloader key="preloader" onComplete={() => setIsLoading(false)} />
+          )}
+        </AnimatePresence>
+
         <ThemeProvider>
           <SmoothScroll>
             <CustomCursor />
