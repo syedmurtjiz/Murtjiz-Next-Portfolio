@@ -78,67 +78,99 @@ const iconVariants = {
 
 export default function Specialization() {
   return (
-    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
-      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
-      
-      <div className="relative z-10">
-        <div className="text-center mb-12">
-                                <motion.div
-                                  initial={{ opacity: 0, y: 20 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ duration: 0.5 }}
-                                  className="text-3xl font-extrabold text-white sm:text-4xl"
-                                >
-                                  <TypewriterText text="Areas of Expertise" id="specializations-heading" />
-                                  <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-                                  Specialized skills delivering innovative, high-quality solutions for modern web development challenges.
-                                  </p>
-                                </motion.div>
-                              </div>
+    <section className="w-full relative bg-white dark:bg-[#120a08] overflow-hidden">
+      {/* Background Decorative Element */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-[var(--primary)]/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {specializations.map((spec, index) => (
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-left"
+          >
+            <span className="text-[var(--primary)] font-bold tracking-wide-label text-xs mb-2 block">Our Expertise</span>
+            <TypewriterText
+              text="Strategic Solutions"
+              id="specializations-heading"
+              className="text-4xl md:text-5xl font-black text-[#111827] dark:text-[#f5e6d3] tracking-tighter-heading line-height-tight mb-4"
+              as="h2"
+            />
+            <p className="max-w-xl text-gray-600 dark:text-gray-400 text-lg line-height-relaxed">
+              Merging technical precision with creative vision to build digital products that resonate and scale.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 auto-rows-[240px]">
+          {/* Featured Card */}
+          <motion.article
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{ y: -5 }}
+            className="md:col-span-2 md:row-span-2 relative p-8 rounded-3xl overflow-hidden glass-card premium-shadow flex flex-col justify-end group border border-gray-100 dark:border-white/5"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="relative z-10">
+              <div className="w-16 h-16 rounded-2xl bg-[var(--primary)] flex items-center justify-center mb-6 shadow-xl shadow-[var(--primary)]/20">
+                <FaDesktop className="text-white w-8 h-8" />
+              </div>
+              <h3 className="text-3xl font-black text-[#111827] dark:text-white tracking-tighter-heading mb-4">
+                Full-Stack Architecture
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-lg mb-6 line-height-relaxed">
+                Architecting robust, end-to-end digital experiences using modern frameworks like React and Next.js.
+              </p>
+              <div className="flex gap-4">
+                <span className="text-xs font-bold tracking-wide-label text-[var(--primary)]">25+ Projects</span>
+                <span className="text-xs font-bold tracking-wide-label text-gray-400">Award Winning</span>
+              </div>
+            </div>
+          </motion.article>
+
+          {/* Secondary Cards */}
+          {specializations.slice(0, 3).map((spec, index) => (
             <motion.article
               key={index}
               variants={cardVariants}
-              whileHover={{ scale: 1.03, boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)' }}
-              className="relative  p-6 rounded-xl shadow-lg border border-gray-100 hover:border-gray-200 transition-all duration-300 group focus-within:ring-2 focus-within:ring-blue-500"
-              aria-labelledby={`specialization-title-${index}`}
-              tabIndex={0}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              whileHover={{ y: -5 }}
+              className={`relative p-6 rounded-3xl glass-card premium-shadow group border border-gray-100 dark:border-white/5 transition-all duration-500 ${index === 0 ? 'md:col-span-2' : 'md:col-span-1'
+                }`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[rgba(59,130,246,0.05)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-              <div className="relative z-10">
-                <motion.div
-                  variants={iconVariants}
-                  className="flex justify-center mb-5"
-                >
-                  <spec.icon
-                    className="w-10 h-10"
-                    style={{ color: spec.color }}
-                    aria-hidden="true"
-                  />
-                </motion.div>
-                <h3
-                  id={`specialization-title-${index}`}
-                  className="text-xl font-semibold text-white/70 text-center mb-3"
-                >
-                  {spec.title}
-                </h3>
-                <p className="text-white text-sm leading-relaxed text-center mb-4">
-                  {spec.description}
-                </p>
-                <p className="text-white/70 font-medium text-center text-sm">
-                  {spec.projects} {spec.projects === 1 ? 'Project' : 'Projects'} Completed
-                </p>
+              <div className="absolute top-4 right-4 text-[var(--primary)]/20 group-hover:text-[var(--primary)] transition-colors duration-500">
+                <spec.icon className="w-12 h-12" />
+              </div>
+              <div className="h-full flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-[#111827] dark:text-white tracking-tighter-heading mb-2">
+                    {spec.title}
+                  </h3>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm line-height-relaxed line-clamp-2">
+                    {spec.description}
+                  </p>
+                </div>
+                <div className="pt-4 mt-auto border-t border-gray-100 dark:border-white/5 flex justify-between items-center">
+                  <span className="text-[10px] font-bold tracking-wide-label text-gray-400">
+                    {spec.projects} Modules
+                  </span>
+                  <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:bg-[var(--primary)] transition-colors">
+                    <svg className="w-3 h-3 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 12h14m-7-7l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </motion.article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
