@@ -3,290 +3,89 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
+import { FaArrowRight } from 'react-icons/fa';
 import TypewriterText from '../TypewriterText';
+import ScrollReveal from '../shared/ScrollReveal';
 
-// Project data
+// Project data (Centralized)
 const projects = [
   {
     slug: 'kelvinweather',
     title: 'KelvinWeather',
-    description: 'A sophisticated weather application delivering real-time updates, built with React and Tailwind CSS.',
+    category: 'System Architecture',
+    description: 'A sophisticated weather application delivering real-time updates through redundant API integration.',
     image: '/weather.png',
-    liveLink: 'https://climatepredictions.netlify.app/',
-    sourceLink: 'https://github.com/syedmurtjiz/my-weather-app',
-    technologies: ['React', 'Tailwind CSS', 'OpenWeather API'],
-    features: [
-      'Real-time weather updates',
-      '5-day forecast',
-      'Temperature conversion',
-      'Location-based weather',
-      'Responsive design',
-    ]
+    year: '2024'
   },
   {
     slug: 'spotifyclone',
     title: 'SpotifyClone',
-    description: 'A full-stack music streaming platform replicating Spotify, developed using Next.js and Node.js.',
+    category: 'Full-Stack Service',
+    description: 'A comprehensive music streaming ecosystem engineered with Next.js and high-availability databases.',
     image: '/spotify.png',
-    liveLink: 'https://spotifyclient.netlify.app/',
-    sourceLink: 'https://github.com/syedmurtjiz/spotifyclone',
-    technologies: ['Next.js', 'Node.js', 'MongoDB', 'Spotify API'],
-    features: [
-      'Music streaming',
-      'Playlist management',
-      'Search functionality',
-      'User authentication',
-      'Responsive design',
-    ]
+    year: '2024'
   },
   {
     slug: 'bookingreplica',
-    title: 'Booking.com Replica',
-    description: 'A feature-rich replica of Booking.com with search and booking capabilities, powered by React and Firebase.',
+    title: 'Precision Booking',
+    category: 'Interaction Design',
+    description: 'A rigorous reconstruction of a global commerce interface, focusing on complex state management.',
     image: '/booking.png',
-    liveLink: 'https://booking-replica.netlify.app/',
-    sourceLink: 'https://github.com/syedmurtjiz/booking.com?tab=readme-ov-file',
-    technologies: ['React', 'Firebase', 'Tailwind CSS'],
-    features: [
-      'Hotel search',
-      'Booking system',
-      'Payment integration',
-      'User authentication',
-      'Responsive design',
-    ]
-  },
-  {
-    slug: 'portfolio',
-    title: 'Portfolio Website',
-    description: 'A professional portfolio showcasing my expertise and projects, crafted with Next.js and Tailwind CSS.',
-    image: '/portfolio.png',
-    liveLink: 'https://syedmurtjizhussain.netlify.app/',
-    sourceLink: 'https://github.com/syedmurtjiz/portfolio',
-    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
-    features: [
-      'Project showcase',
-      'Contact form',
-      'Responsive design',
-      'Smooth animations',
-      'SEO optimized',
-    ]
-  },
-  {
-    slug: 'elevateunlimited',
-    title: 'Elevate Unlimited',
-    description: 'A professional portfolio showcasing my expertise and projects, crafted with Next.js and Tailwind CSS.',
-    image: '/elevate.png',
-    liveLink: 'https://elevatesunlimited.netlify.app/',
-    sourceLink: 'https://github.com/syedmurtjiz/Elevate-Unlimited',
-    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
-    features: [
-      'Project showcase',
-      'Contact form',
-      'Responsive design',
-      'Smooth animations',
-      'SEO optimized',
-    ]
-  },
-    {
-    slug: 'cozycritters',
-    title: 'Cozy Critters',
-    description: 'Each pet profile provides detailed information about the animal’s personality, care needs, and lifespan.',
-    image: '/cozy.jpg',
-    liveLink: 'https://cozy-critters.netlify.app/',
-    sourceLink: 'https://github.com/syedmurtjiz/Cozy-Critters',
-    technologies: ['React.js', 'CSS'],
-    features: [
-      'Project showcase',
-      'Contact form',
-      'Responsive design',
-      'Smooth animations',
-    ]
+    year: '2023'
   }
 ];
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1]
-    },
-  }),
-};
-
-const iconVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.3,
-      ease: 'easeOut',
-    },
-  },
-};
-
 export default function Projects() {
   return (
-    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
-      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
-      
-      <div className="relative z-10">
-        <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl font-extrabold text-white sm:text-4xl"
-          >
-            <TypewriterText text="Portfolio Highlights" id="projects-heading" />
-            <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-              Explore my latest projects and case studies
-            </p>
-          </motion.div>
+    <section className="w-full relative py-32 bg-[var(--background-contrast)] transition-colors duration-300 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+          <div className="max-w-2xl">
+            <span className="text-[var(--primary)] font-black tracking-wide-label text-xs mb-4 block uppercase">Featured Case Studies</span>
+            <TypewriterText
+              text="Pioneering Digital Solutions"
+              id="projects-heading"
+              className="text-5xl md:text-7xl font-black text-[#111827] dark:text-white tracking-tighter-heading line-height-tight"
+              as="h2"
+            />
+          </div>
+          <Link href="/portfolio" className="group flex items-center gap-4 text-sm font-black tracking-wide-label transition-all hover:text-[var(--primary)] mb-4">
+            VIEW ALL WORK
+            <div className="w-12 h-12 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center group-hover:bg-[var(--primary)] group-hover:border-[var(--primary)] group-hover:text-white transition-all duration-500">
+              <FaArrowRight size={14} />
+            </div>
+          </Link>
         </div>
 
-        <div className="relative px-2 py-6">
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={30}
-            slidesPerView={1}
-            breakpoints={{
-              640: {
-                slidesPerView: 1,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-            }}
-            navigation={false}
-            pagination={{
-              clickable: true,
-              el: '.swiper-pagination',
-              type: 'bullets',
-              dynamicBullets: true
-            }}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            loop={true}
-            className="w-full py-8 px-2"
-          >
-            {projects.map((project, index) => (
-              <SwiperSlide key={index}>
-                <motion.article
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative overflow-hidden rounded-2xl bg-gray-800/80 backdrop-blur-sm border border-gray-700/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 h-full"
-                  whileHover={{ y: -5 }}
-                  aria-labelledby={`project-title-${index}`}
-                >
-              <div className="relative h-48 sm:h-52 md:h-56 w-full overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={`${project.title} screenshot`}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  priority={index < 3}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <div className="p-4 w-full">
-                    <div className="flex justify-center space-x-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                      <motion.a
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variants={iconVariants}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg"
-                        aria-label={`Visit live demo of ${project.title}`}
-                      >
-                        <FaExternalLinkAlt size={16} />
-                      </motion.a>
-                      <motion.a
-                        href={project.sourceLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variants={iconVariants}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 text-white shadow-lg"
-                        aria-label={`View source code of ${project.title}`}
-                      >
-                        <FaGithub size={18} />
-                      </motion.a>
-                    </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <ScrollReveal key={index} delay={index * 0.1}>
+              <Link href={`/projects/${project.slug}`} className="group block h-full">
+                <div className="relative h-[450px] w-full overflow-hidden rounded-[2.5rem] premium-shadow border border-black/5 dark:border-white/5 mb-8">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+
+                  <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                    <span className="text-white/60 font-black tracking-wide-label text-[10px] uppercase mb-2">{project.category}</span>
+                    <h3 className="text-2xl font-black text-white tracking-tighter-heading mb-4 group-hover:text-[var(--primary)] transition-colors">
+                      {project.title}
+                    </h3>
                   </div>
                 </div>
-              </div>
-              <div className="p-5 md:p-6">
-                <h3
-                  id={`project-title-${index}`}
-                  className="text-lg md:text-xl font-bold mb-2 text-white line-clamp-2"
-                >
-                  {project.title}
-                </h3>
-                <p className="text-gray-300 text-sm md:text-base mb-4 line-clamp-3">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech, i) => (
-                    <span 
-                      key={i}
-                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-900/30 text-indigo-200"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <div className="px-4">
+                  <p className="text-gray-500 dark:text-gray-400 font-medium line-height-relaxed line-clamp-2">
+                    {project.description}
+                  </p>
                 </div>
-                <div className="flex justify-between items-center">
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors flex items-center"
-                  >
-                    View Details
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
-                  </div>
-                </motion.article>
-              </SwiperSlide>
-            ))}
-            
-            {/* Pagination */}
-            <div className="swiper-pagination !relative mt-6"></div>
-          </Swiper>
+              </Link>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>
