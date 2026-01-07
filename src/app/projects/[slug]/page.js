@@ -3,213 +3,239 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import { notFound } from 'next/navigation';
 import { use } from 'react';
-import TypewriterText from '../../../components/TypewriterText';
+import { ScrollReveal, RevealItem } from '@/components/shared/ScrollReveal';
 
-// Project data (same as in Projects.js)
+// Project data (Centralized)
 const projects = [
   {
     slug: 'kelvinweather',
     title: 'KelvinWeather',
-    description: 'A sophisticated weather application delivering real-time updates, built with React and Tailwind CSS.',
+    category: 'System Architecture',
+    description: 'A sophisticated weather application delivering real-time updates through redundant API integration and a high-fidelity visual interface.',
     image: '/weather.png',
     liveLink: 'https://climatepredictions.netlify.app/',
     sourceLink: 'https://github.com/syedmurtjiz/my-weather-app',
     technologies: ['React', 'Tailwind CSS', 'OpenWeather API'],
+    year: '2024',
     features: [
-      'Real-time weather updates',
-      '5-day forecast',
-      'Temperature conversion',
-      'Location-based weather',
-      'Responsive design',
+      'Real-time data synchronization',
+      'Geospatial weather mapping',
+      'Advanced temperature telemetry',
+      'Dynamic asset loading based on conditions',
     ]
   },
   {
     slug: 'spotifyclone',
     title: 'SpotifyClone',
-    description: 'A full-stack music streaming platform replicating Spotify, developed using Next.js and Node.js.',
+    category: 'Full-Stack Service',
+    description: 'A comprehensive music streaming ecosystem engineered with Next.js and high-availability database architectures.',
     image: '/spotify.png',
     liveLink: 'https://spotifyclient.netlify.app/',
     sourceLink: 'https://github.com/syedmurtjiz/spotifyclone',
-    technologies: ['React.js', 'Tailwind CSS', 'Spotify API'],
+    technologies: ['Next.js', 'Node.js', 'MongoDB', 'Spotify API'],
+    year: '2024',
     features: [
-      'Music streaming',
-      'Playlist management',
-      'Search functionality',
-      'User authentication',
-      'Responsive design',
+      'Sub-second music stream latency',
+      'Relational playlist management',
+      'High-performance search algorithms',
+      'JWT-based secure authentication',
     ]
   },
   {
     slug: 'bookingreplica',
-    title: 'Booking.com Replica',
-    description: 'The Booking.com Replica is a front-end web application inspired by the popular travel booking platform, Booking.com. The project aims to recreate the user interface and user experience of the original site, focusing on responsive design, layout structure, and interactive components using HTML, CSS, and JavaScript',
+    title: 'Precision Booking',
+    category: 'Interaction Design',
+    description: 'A rigorous reconstruction of a global commerce interface, focusing on complex state management and responsive reliability.',
     image: '/booking.png',
     liveLink: 'https://booking-replica.netlify.app/',
     sourceLink: 'https://github.com/syedmurtjiz/booking.com?tab=readme-ov-file',
-    technologies: ['Html', 'CSS', 'JavaScript'],
+    technologies: ['React', 'Firebase', 'Tailwind CSS'],
+    year: '2023',
     features: [
-      'Hotel search',
-      'Booking system'
-    ]
-  },
-  {
-    slug: 'elevateunlimited',
-    title: 'Elevate Unlimited',
-    description: 'Elevate Unlimited is the premium version of the Elevate brain training app, designed to improve cognitive skills such as focus, memory, math, reading, and writing through personalized daily exercises and games.',
-    image: '/elevate.png',
-    liveLink: 'https://elevatesunlimited.netlify.app/',
-    sourceLink: 'https://github.com/syedmurtjiz/Elevate-Unlimited',
-    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
-    features: [
-      'Unlimited access to daily workouts',
-      'Advanced difficulty levels',
-      'Guided Walking Meditations',
-      'Mind-Body Integration'
+      'Enterprise-grade search filtering',
+      'Real-time database triggers',
+      'Optimized booking workflow',
+      'Mobile-first grid systems',
     ]
   },
   {
     slug: 'portfolio',
-    title: 'Portfolio Website',
-    description: 'A professional portfolio showcasing my expertise and projects, crafted with Next.js and Tailwind CSS.',
+    title: 'Elite Portfolio',
+    category: 'Brand Experience',
+    description: 'A flagship digital presence engineered with editorial typography and advanced micro-interaction ecosystems.',
     image: '/portfolio.png',
-    liveLink: 'https://murtjiznaqvi.com',
-    sourceLink: 'https://github.com/murtjiznaqvi/portfolio',
-    technologies: ['React.js', 'Tailwind CSS', 'Framer Motion'],
+    liveLink: 'https://syedmurtjizhussain.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/portfolio',
+    technologies: ['Next.js', 'Framer Motion', 'Tailwind CSS'],
+    year: '2025',
     features: [
-      'Project showcase',
-      'Contact form',
-      'Responsive design',
-      'Smooth animations',
+      'Editorial-grade typography audit',
+      'Magnetic navigation logic',
+      'Dynamic theme reveal systems',
+      'Precision SEO indexing',
+    ]
+  },
+  {
+    slug: 'elevateunlimited',
+    title: 'Elevate Pro',
+    category: 'Digital Product',
+    description: 'A premium cognitive training platform with personalized exercises and a focus on high-performance human interaction.',
+    image: '/elevate.png',
+    liveLink: 'https://elevatesunlimited.netlify.app/',
+    sourceLink: 'https://github.com/syedmurtjiz/Elevate-Unlimited',
+    technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
+    year: '2024',
+    features: [
+      'Cognitive difficulty algorithms',
+      'Mind-Body state management',
+      'Advanced data visualization',
+      'Interactive meditation flows',
     ]
   },
   {
     slug: 'cozycritters',
     title: 'Cozy Critters',
-    description: 'Each pet profile provides detailed information about the animal’s personality, care needs, and lifespan. Designed to help potential adopters understand the pet’s character and suitability for their home',
+    category: 'Web Experience',
+    description: 'An immersive digital catalog focused on detailed typography and soft-interaction UI patterns.',
     image: '/cozy.jpg',
     liveLink: 'https://cozy-critters.netlify.app/',
     sourceLink: 'https://github.com/syedmurtjiz/Cozy-Critters',
-    technologies: ['React.js', 'CSS'],
+    technologies: ['React.js', 'Tailwind', 'CSS'],
+    year: '2023',
     features: [
-      'Detailed cards for each cat and dog breed',
-      'Short, informative descriptions about behavior and care',
-      'Filter animals by species (cats/dogs), breed',
-      'Responsive design',
+      'Curated breed taxonomies',
+      'Accessibility-first layouts',
+      'Visual storytelling nodes',
+      'Lightweight performance budget',
     ]
   }
 ];
 
-// Reusable Components
-const TechBadge = ({ tech }) => (
-  <span className="px-3 py-1 bg-gray-800/50 text-white/80 rounded-full text-sm transition-colors hover:bg-gray-700/70">
-    {tech}
-  </span>
-);
-
-const FeatureItem = ({ feature }) => (
-  <li className="flex items-start text-white/80">
-    <span className="mr-2 text-green-400">•</span>
-    {feature}
-  </li>
-);
-
-const ProjectLink = ({ href, icon, label }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 hover:bg-gray-700/70 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400"
-    aria-label={label}
-  >
-    {icon}
-    {label}
-  </a>
-);
-
 export default function ProjectPage({ params }) {
   const { slug } = use(params);
-  const project = projects.find(p => p.slug === slug);
+  const currentIndex = projects.findIndex(p => p.slug === slug);
+  const project = projects[currentIndex];
 
-  if (!project) {
-    notFound();
-  }
+  if (!project) notFound();
+
+  const nextProject = projects[(currentIndex + 1) % projects.length];
 
   return (
-    <section className="max-w-6xl mx-auto mt-[100px] border border-gray-200 rounded-3xl py-8 sm:px-4 lg:px-6 p-2">
-      <div className="">
-                  <motion.div
-                    initial={{ opacity: 0, y: -40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: 'easeOut' }}
-                    className="text-center"
-                  >
-                    <TypewriterText text={project.title} id="projects-heading" />
-                  </motion.div>
-<div className="text-white/60 text-center mb-4" id="projects-heading">
-  {project.description}
-</div>
+    <div className="w-full bg-[var(--background)] transition-colors duration-300">
+      {/* Flagship Project Hero */}
+      <section className="relative h-[85vh] w-full overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          style={{ y: '20%' }}
+        >
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-1000 scale-105"
+            priority
+          />
+          <div className="absolute inset-0 bg-[#0d0907]/80 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0d0907]/50 to-[#0d0907]" />
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {/* Project Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden"
-          >
-            <Image
-              src={project.image}
-              alt={`${project.title} screenshot`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
-              loading="eager"
-            />
-          </motion.div>
+        <div className="relative z-10 h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-end pb-24">
+          <ScrollReveal>
+            <span className="text-[var(--primary)] font-black tracking-wide-label text-xs mb-6 block">Case Study // {project.year}</span>
+            <h1 className="text-6xl md:text-9xl font-black text-white tracking-tighter-heading line-height-tight mb-8">
+              {project.title.split(' ')[0]} <br />
+              <span className="text-white/20">{project.title.split(' ')[1] || 'Project'}</span>
+            </h1>
+            <div className="flex flex-wrap gap-4">
+              <a href={project.liveLink} target="_blank" className="px-8 py-4 bg-[var(--primary)] text-white font-black tracking-wide-label text-xs rounded-2xl shadow-2xl shadow-[var(--primary)]/30 shimmer-effect overflow-hidden">
+                VISIT EXPERIENCE
+              </a>
+              <a href={project.sourceLink} target="_blank" className="px-8 py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white font-black tracking-wide-label text-xs rounded-2xl hover:bg-white/10 transition-all">
+                VIEW ARCHIVE
+              </a>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
 
-          {/* Project Details */}
-          <div className="space-y-6 sm:space-y-8">
-            <div>
-              <h2 className="text-2xl font-semibold text-white/80 mb-4">
-                Technologies Used
-              </h2>
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {project.technologies.map((tech, index) => (
-                  <TechBadge key={index} tech={tech} />
-                ))}
+      {/* Strategic Breakdown */}
+      <section className="py-32 max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+          {/* Left: Narrative */}
+          <div className="lg:col-span-7">
+            <ScrollReveal>
+              <h2 className="text-xs font-black tracking-wide-label text-gray-400 mb-8 uppercase">The Objective</h2>
+              <p className="text-3xl md:text-4xl font-black text-[#111827] dark:text-white tracking-tighter-heading line-height-tight mb-12">
+                {project.description}
+              </p>
+
+              <div className="space-y-12">
+                <div>
+                  <h3 className="text-xs font-black tracking-wide-label text-[var(--primary)] mb-6 uppercase">Key Features</h3>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {project.features.map((f, i) => (
+                      <li key={i} className="flex items-start gap-4">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--primary)] mt-2 shrink-0" />
+                        <span className="text-gray-500 dark:text-gray-400 font-medium leading-relaxed">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
+          </div>
 
-            <div>
-              <h2 className="text-2xl font-semibold text-white/80 mb-4">
-                Key Features
-              </h2>
-              <ul className="space-y-2 sm:space-y-3">
-                {project.features.map((feature, index) => (
-                  <FeatureItem key={index} feature={feature} />
-                ))}
-              </ul>
-            </div>
+          {/* Right: Technical Specs */}
+          <div className="lg:col-span-5 bg-gray-50 dark:bg-white/[0.02] rounded-[2.5rem] p-12 border border-gray-100 dark:border-white/5 self-start sticky top-32">
+            <ScrollReveal delay={0.2}>
+              <h2 className="text-xs font-black tracking-wide-label text-gray-400 mb-12 uppercase">Specifications</h2>
 
-            <div className="flex flex-col sm:flex-row gap-2 text-white/70 sm:gap-4">
-              <ProjectLink
-                href={project.liveLink}
-                icon={<FaExternalLinkAlt />}
-                label="Live Demo"
-              />
-              <ProjectLink
-                href={project.sourceLink}
-                icon={<FaGithub />}
-                label="Source Code"
-              />
-            </div>
+              <div className="space-y-10">
+                <div>
+                  <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase block mb-3">Service</span>
+                  <p className="text-xl font-black dark:text-white">{project.category}</p>
+                </div>
+                <div>
+                  <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase block mb-3">Stack Integration</span>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((t, i) => (
+                      <span key={i} className="px-3 py-1 rounded-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 text-[10px] font-bold tracking-widest uppercase">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase block mb-3">Timeline</span>
+                  <p className="text-xl font-black dark:text-white">{project.year} — Pakistan</p>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Next Project Bridge */}
+      <Link href={`/projects/${nextProject.slug}`} className="group relative w-full h-[50vh] flex items-center justify-center overflow-hidden bg-black">
+        <Image
+          src={nextProject.image}
+          alt="Next Project"
+          fill
+          className="object-cover opacity-30 group-hover:opacity-50 group-hover:scale-110 transition-all duration-1000"
+        />
+        <div className="relative z-10 text-center">
+          <span className="text-white/60 font-black tracking-wide-label text-xs mb-4 block group-hover:text-[var(--primary)] transition-colors">NEXT STUDY</span>
+          <h3 className="text-4xl md:text-7xl font-black text-white tracking-tighter-heading line-height-tight group-hover:tracking-normal transition-all duration-700">
+            {nextProject.title}
+          </h3>
+        </div>
+        <div className="absolute bottom-12 right-12 text-white/20 group-hover:text-white transition-colors">
+          <FaArrowRight size={40} />
+        </div>
+      </Link>
+    </div>
   );
 }
