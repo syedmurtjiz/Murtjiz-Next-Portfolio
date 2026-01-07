@@ -16,7 +16,7 @@ export default function ContactForm() {
     if (typeof window !== 'undefined') {
       // Only initialize on client side
       emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
-      
+
       // Debug: Log environment variables to console
       console.log('EmailJS Config:', {
         serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
@@ -30,7 +30,7 @@ export default function ContactForm() {
   const onSubmit = async (data) => {
     console.log('=== Form Submission Started ===');
     console.log('Form data:', data);
-    
+
     // Log environment variables (safe since they're prefixed with NEXT_PUBLIC_)
     const envVars = {
       serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'Not set',
@@ -39,21 +39,21 @@ export default function ContactForm() {
       recipientEmail: process.env.NEXT_PUBLIC_EMAILJS_RECIPIENT_EMAIL || 'Not set'
     };
     console.log('Environment variables:', envVars);
-    
+
     // Show loading state
     setIsSubmitting(true);
-    
+
     try {
       // Basic validation with more detailed error messages
       const missingVars = [];
       if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID) missingVars.push('NEXT_PUBLIC_EMAILJS_SERVICE_ID');
       if (!process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID) missingVars.push('NEXT_PUBLIC_EMAILJS_TEMPLATE_ID');
       if (!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) missingVars.push('NEXT_PUBLIC_EMAILJS_PUBLIC_KEY');
-      
+
       if (missingVars.length > 0) {
         throw new Error(`Missing required EmailJS configuration variables: ${missingVars.join(', ')}. Please check your .env.local file.`);
       }
-      
+
       const templateParams = {
         from_name: `${data.firstName} ${data.lastName}`.trim(),
         from_email: data.email,
@@ -67,18 +67,18 @@ export default function ContactForm() {
 
       // Re-initialize emailjs with the public key
       emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
-      
+
       // Send email using EmailJS
       console.log('Sending email with template ID:', process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID);
       console.log('Using service ID:', process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID);
-      
+
       const response = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
         templateParams,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY // Pass public key as fourth parameter
       );
-      
+
       console.log('EmailJS Response:', response);
 
       console.log('Email sent successfully:', response);
@@ -93,10 +93,10 @@ export default function ContactForm() {
         text: error.text || 'N/A',
         stack: error.stack || 'No stack trace'
       });
-      
+
       // More user-friendly error messages
       let errorMessage = 'Failed to send message. ';
-      
+
       if (error.status === 0) {
         errorMessage += 'Network error. Please check your internet connection.';
       } else if (error.status === 400) {
@@ -108,7 +108,7 @@ export default function ContactForm() {
       } else {
         errorMessage += error.message || 'Please try again or contact me directly at murtjiznaqvi@gmail.com';
       }
-      
+
       alert(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -117,22 +117,20 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="w-full max-w-6xl mx-auto border-0 sm:border border-gray-200 rounded-2xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative">
-      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-pink-500/5 rounded-2xl"></div>
-      
-      <div className="relative z-10">
-              <div className="text-center mb-12">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-3xl font-extrabold text-white sm:text-4xl"
-                >
-                  <TypewriterText text="Get in Touch" id="contact-heading" />
-                  <p className="mt-3 max-w-2xl mx-auto text-gray-300 sm:mt-4 text-sm sm:text-base">
-                  I specialize in crafting elegant, user-focused digital solutions. Reach out to discuss your project or explore collaboration opportunities.                  </p>
-                </motion.div>
-              </div>
+    <section className="w-full relative bg-white dark:bg-[#120a08] overflow-hidden" id="contact">
+      <div className="max-w-6xl mx-auto px-6 lg:px-12 relative z-10">
+        <div className="mb-20">
+          <span className="text-[var(--primary)] font-black tracking-wide-label text-xs mb-4 block">Inquiries</span>
+          <TypewriterText
+            text="Start a Project"
+            id="contact-heading"
+            className="text-4xl md:text-6xl font-black text-[#111827] dark:text-white tracking-tighter-heading line-height-tight"
+            as="h2"
+          />
+          <p className="mt-6 max-w-xl text-lg text-gray-500 dark:text-gray-400 line-height-relaxed font-medium">
+            Reach out to discuss your project or explore collaboration opportunities.
+          </p>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-8 relative z-10">
           <form
@@ -147,9 +145,8 @@ export default function ContactForm() {
                 id="firstName"
                 type="text"
                 placeholder="First Name"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  errors.firstName ? 'border-red-500' : 'border-gray-300 focus:border-indigo-500'
-                } bg-white`}
+                className={`w-full px-4 py-3 rounded-lg border ${errors.firstName ? 'border-red-500' : 'border-gray-200 dark:border-gray-800 focus:border-[#d4a373]'
+                  } bg-white dark:bg-[#2a1d1a] dark:text-[#f5e6d3]`}
                 {...register('firstName', { required: 'First name is required' })}
                 aria-invalid={errors.firstName ? 'true' : 'false'}
                 aria-describedby={errors.firstName ? 'firstName-error' : undefined}
@@ -165,9 +162,8 @@ export default function ContactForm() {
                 id="lastName"
                 type="text"
                 placeholder="Last Name"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  errors.lastName ? 'border-red-500' : 'border-gray-300 focus:border-indigo-500'
-                } bg-white`}
+                className={`w-full px-4 py-3 rounded-lg border ${errors.lastName ? 'border-red-500' : 'border-gray-200 dark:border-gray-800 focus:border-[#d4a373]'
+                  } bg-white dark:bg-[#2a1d1a] dark:text-[#f5e6d3]`}
                 {...register('lastName', { required: 'Last name is required' })}
                 aria-invalid={errors.lastName ? 'true' : 'false'}
                 aria-describedby={errors.lastName ? 'lastName-error' : undefined}
@@ -183,9 +179,8 @@ export default function ContactForm() {
                 id="email"
                 type="email"
                 placeholder="Email Address"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  errors.email ? 'border-red-500' : 'border-gray-300 focus:border-indigo-500'
-                } bg-white`}
+                className={`w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-200 dark:border-gray-800 focus:border-[#d4a373]'
+                  } bg-white dark:bg-[#2a1d1a] dark:text-[#f5e6d3]`}
                 {...register('email', {
                   required: 'Email address is required',
                   pattern: {
@@ -207,9 +202,8 @@ export default function ContactForm() {
                 id="phone"
                 type="tel"
                 placeholder="Phone Number"
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  errors.phone ? 'border-red-500' : 'border-gray-300 focus:border-indigo-500'
-                } bg-white`}
+                className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-200 dark:border-gray-800 focus:border-[#d4a373]'
+                  } bg-white dark:bg-[#2a1d1a] dark:text-[#f5e6d3]`}
                 {...register('phone', {
                   required: 'Phone number is required',
                   pattern: {
@@ -231,9 +225,8 @@ export default function ContactForm() {
                 id="message"
                 placeholder="Your Message"
                 rows={5}
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  errors.message ? 'border-red-500' : 'border-gray-300 focus:border-indigo-500'
-                } bg-white min-h-[150px]`}
+                className={`w-full px-4 py-3 rounded-lg border ${errors.message ? 'border-red-500' : 'border-gray-200 dark:border-gray-800 focus:border-[#d4a373]'
+                  } bg-white dark:bg-[#2a1d1a] dark:text-[#f5e6d3] min-h-[150px]`}
                 {...register('message', { required: 'Message is required' })}
                 aria-invalid={errors.message ? 'true' : 'false'}
                 aria-describedby={errors.message ? 'message-error' : undefined}
@@ -245,40 +238,40 @@ export default function ContactForm() {
 
             <button
               type="submit"
-              className={`w-full py-3 px-6 rounded-lg font-medium transition-colors bg-[#0077B5] hover:text-[#0077B5]/80`}
+              className="w-full py-5 px-6 rounded-2xl font-black tracking-wide-label transition-all duration-300 bg-[var(--primary)] text-white shadow-2xl shadow-[var(--primary)]/30 hover:scale-[1.02] active:scale-[0.98] shimmer-effect overflow-hidden uppercase flex items-center justify-center gap-3"
               disabled={isSubmitting}
               aria-busy={isSubmitting ? 'true' : 'false'}
             >
               {isSubmitting ? (
                 <>
                   <FaSpinner className="animate-spin h-5 w-5" />
-                  <span>Sending...</span>
+                  <span>Processing...</span>
                 </>
               ) : (
-                <span>Submit Message</span>
+                <span>Send Inquiry</span>
               )}
             </button>
           </form>
 
-          <aside className="flex-1 text-gray-300 text-sm lg:text-base">
+          <aside className="flex-1 text-gray-600 dark:text-[#f5e6d3] text-sm lg:text-base">
             <p className="mb-6">
               I am available for new projects and collaborations. Contact me to discuss your ideas or inquire about my services.
             </p>
             <ul className="space-y-4">
               <li className="flex items-center">
-                <Link href="https://wa.me/923447470874" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-300 transition-colors">
-                  <FaWhatsapp className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
+                <Link href="https://wa.me/923447470874" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-[#d4a373] transition-colors">
+                  <FaWhatsapp className="w-5 h-5 mr-3 text-[#d4a373]" aria-hidden="true" />
                   +92 3447470874
                 </Link>
               </li>
               <li className="flex items-center">
-                <Link href="mailto:murtjiznaqvi@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-blue-300 transition-colors">
-                  <FaEnvelope className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
+                <Link href="mailto:murtjiznaqvi@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center hover:text-[#d4a373] transition-colors">
+                  <FaEnvelope className="w-5 h-5 mr-3 text-[#d4a373]" aria-hidden="true" />
                   murtjiznaqvi@gmail.com
                 </Link>
-              </li> 
+              </li>
               <li className="flex items-center">
-                <FaMapMarkerAlt className="w-5 h-5 mr-3 text-blue-400" aria-hidden="true" />
+                <FaMapMarkerAlt className="w-5 h-5 mr-3 text-[#d4a373]" aria-hidden="true" />
                 <span>Saddar, Rawalpindi, Pakistan</span>
               </li>
             </ul>
