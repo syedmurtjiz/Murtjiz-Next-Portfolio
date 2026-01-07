@@ -108,33 +108,38 @@ function Header() {
         </div>
 
         {/* Mobile menu button */}
-        <button
-          onClick={toggleMenu}
-          className="md:hidden relative z-[110] w-10 h-10 flex items-center justify-center text-gray-600 dark:text-white"
-          aria-label="Toggle Navigation"
-        >
-          <AnimatePresence mode="wait">
-            {isMenuOpen ? (
-              <motion.div
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-              >
-                <FaTimes size={24} />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="open"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-              >
-                <FaBars size={24} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
+        <div className="md:hidden flex items-center space-x-4">
+          <span className="text-[10px] font-black tracking-[0.2em] text-[#111827] dark:text-white/40 uppercase">
+            {isMenuOpen ? "CLOSE" : "MENU"}
+          </span>
+          <button
+            onClick={toggleMenu}
+            className="relative z-[110] w-10 h-10 flex items-center justify-center text-gray-600 dark:text-white"
+            aria-label="Toggle Navigation"
+          >
+            <AnimatePresence mode="wait">
+              {isMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                >
+                  <FaTimes size={24} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="open"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                >
+                  <FaBars size={24} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu Overlay - Moved outside nav for better stacking context */}
@@ -181,14 +186,15 @@ function Header() {
               >
                 <div className="flex gap-10">
                   {socialLinks.map((link, i) => (
-                    <motion.a
-                      key={i}
-                      href={link.href}
-                      whileHover={{ y: -5, color: 'var(--primary)' }}
-                      className="text-gray-400 dark:text-gray-500 transition-colors"
-                    >
-                      {link.icon}
-                    </motion.a>
+                    <Magnetic key={i} strength={0.4}>
+                      <motion.a
+                        href={link.href}
+                        whileHover={{ y: -5, color: 'var(--primary)' }}
+                        className="text-gray-400 dark:text-gray-500 transition-colors"
+                      >
+                        {link.icon}
+                      </motion.a>
+                    </Magnetic>
                   ))}
                 </div>
                 <div className="scale-125">
