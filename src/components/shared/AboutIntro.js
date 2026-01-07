@@ -47,15 +47,15 @@ const AboutIntro = () => {
                 {/* Visual Column */}
                 <div className="w-full lg:w-1/2 relative">
                     <ScrollReveal delay={0.4} x={40}>
-                        <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden glass-card premium-shadow">
+                        <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden glass-card premium-shadow group">
                             <Image
-                                src="/murtjiz.png"
+                                src="/syed.jpeg"
                                 alt="Portrait"
                                 fill
-                                className="object-cover grayscale hover:grayscale-0 transition-all duration-1000"
+                                className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:saturate-150"
                                 priority
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8 opacity-90 group-hover:opacity-100 transition-opacity duration-500">
                                 <span className="text-white font-black tracking-tighter-heading text-4xl">Creative Authority.</span>
                                 <span className="text-white/60 text-sm font-medium">Syed Murtjiz Naqvi</span>
                             </div>
