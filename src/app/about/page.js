@@ -1,35 +1,38 @@
 'use client';
 
-import React from 'react';
-import PageHero from '@/components/shared/PageHero';
+import Specialization from '@/components/Home/Specialization';
+import Achievements from '@/components/Home/achievements';
 import Education from '@/components/Home/Education';
 import Skills from '@/components/Home/Skills';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import PageHero from '@/components/shared/PageHero';
+import AboutIntro from '@/components/shared/AboutIntro';
+import Marquee from '@/components/shared/Marquee';
+import ScrollReveal from '@/components/shared/ScrollReveal';
 
 export default function AboutPage() {
   return (
-    <PageHero title="About Me" currentPage="about">
-      {/* Background Image with Parallax Effect */}
-      <motion.div
-        className="fixed inset-0 z-0"
-        initial={{ y: 0 }}
-        animate={{ y: 50 }}
-        transition={{ repeat: Infinity, repeatType: 'reverse', duration: 10, ease: 'linear' }}
-      >
-        <Image
-          src="/images/gradient-bg.png"
-          alt="Background"
-          fill
-          className="object-cover opacity-20 dark:opacity-10"
-          priority
-        />
-      </motion.div>
+    <PageHero title="The Methodology" currentPage="about">
+      <div className="relative z-10 py-12">
+        <AboutIntro />
 
-      {/* Content */}
-      <div className="relative z-10 space-y-24 py-12 container mx-auto px-4">
-        <Education />
-        <Skills />
+        <div className="py-24">
+          <Marquee text="Design Portfolio // Strategic Architecture // Full Stack // 2025" speed={30} />
+        </div>
+
+        <div className="space-y-32">
+          <ScrollReveal stagger>
+            <Education />
+          </ScrollReveal>
+          <ScrollReveal stagger>
+            <Skills />
+          </ScrollReveal>
+          <ScrollReveal stagger>
+            <Specialization />
+          </ScrollReveal>
+          <ScrollReveal stagger>
+            <Achievements />
+          </ScrollReveal>
+        </div>
       </div>
     </PageHero>
   );

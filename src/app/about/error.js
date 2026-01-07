@@ -46,7 +46,7 @@ export default function AboutError({ error, reset }) {
           </p>
           <motion.button
             onClick={reset}
-            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="px-6 py-3 bg-[#d4a373] hover:bg-[#c59262] text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
