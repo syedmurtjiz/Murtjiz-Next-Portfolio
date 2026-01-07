@@ -11,8 +11,8 @@ export default function Loading() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-        <motion.p 
+        <div className="w-16 h-16 border-4 border-[#d4a373] border-t-transparent rounded-full animate-spin mb-4"></div>
+        <motion.p
           className="text-lg text-gray-700 dark:text-gray-300 font-medium"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
