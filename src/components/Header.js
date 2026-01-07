@@ -3,159 +3,202 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { FaBars, FaTimes } from "react-icons/fa";
+import ThemeToggle from "@/components/shared/ThemeToggle";
+import Magnetic from "@/components/shared/Magnetic";
+
+const menuItems = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const socialLinks = [
+  { href: 'https://www.linkedin.com/in/syedmurtjiz/', icon: <FaLinkedin size={20} />, label: 'LinkedIn' },
+  { href: 'https://github.com/syedmurtjiz', icon: <FaGithub size={20} />, label: 'GitHub' },
+  { href: 'https://x.com/Murtjiz_Naqvi', icon: <FaXTwitter size={20} />, label: 'X (Twitter)' },
+];
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    // Prevent scrolling when menu is open
+    document.body.style.overflow = !isMenuOpen ? 'hidden' : 'unset';
   };
 
-  const iconVariants = {
-    hover: { scale: 1.1, rotate: 5 },
-    tap: { scale: 0.95 }
+  const menuVariants = {
+    closed: { opacity: 0, y: "-100%" },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
   };
 
-  const menuItems = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/services', label: 'Services' },
-    { href: '/portfolio', label: 'Portfolio' },
-    { href: '/contact', label: 'Contact' },
-  ];
-
-  const socialLinks = [
-    { href: 'https://www.linkedin.com/in/syedmurtjiz/', icon: <FaLinkedin size={20} />, label: 'LinkedIn' },
-    { href: 'https://github.com/syedmurtjiz', icon: <FaGithub size={20} />, label: 'GitHub' },
-    { href: 'https://x.com/Murtjiz_Naqvi', icon: <FaXTwitter size={20} />, label: 'X (Twitter)' },
-  ];
+  const itemVariants = {
+    closed: { opacity: 0, y: 20 },
+    open: { opacity: 1, y: 0 }
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
-      <nav className="max-w-7xl mx-auto px-4 lg:px-8 relative">
-        <div className="flex items-center justify-between h-16 relative">
-          {/* Logo */}
-          <Link 
-            href="/" 
-            className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent z-10"
-          >
-            MN
-          </Link>
+    <header className="fixed top-0 left-0 right-0 z-[100] w-full bg-white/80 dark:bg-[#0d0907]/80 backdrop-blur-md border-b border-gray-100 dark:border-white/5 transition-all duration-300">
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-[2px] bg-[var(--primary)] origin-left z-[110]"
+        style={{ scaleX }}
+      />
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8 ml-auto">
-            {menuItems.map((item) => (
+      <nav className="max-w-7xl mx-auto px-6 md:px-12 relative h-20 flex items-center justify-between">
+        {/* Logo */}
+        <Magnetic strength={0.2}>
+          <Link
+            href="/"
+            className="text-2xl font-black tracking-tighter-heading text-[#111827] dark:text-white group relative z-[110]"
+          >
+            MN<span className="text-[var(--primary)] transition-transform group-hover:inline-block group-hover:rotate-12 group-hover:translate-x-1">.</span>
+          </Link>
+        </Magnetic>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-12">
+          {menuItems.map((item) => (
+            <Magnetic key={item.href} strength={0.3}>
               <Link
-                key={item.href}
                 href={item.href}
-                className={`text-gray-600 hover:text-purple-400 transition-colors duration-300 font-medium ${pathname === item.href ? 'text-purple-500' : ''}`}
+                className={`group relative py-2 text-sm font-bold tracking-wide-label transition-colors duration-300 ${pathname === item.href
+                  ? 'text-[var(--primary)]'
+                  : 'text-gray-500 dark:text-gray-400 hover:text-[var(--primary)]'
+                  }`}
               >
                 {item.label}
-                {pathname === item.href && (
-                  <motion.div
-                    className="absolute -bottom-1 left-0 w-full h-0.5 bg-purple-400"
-                    layoutId="underline"
-                    initial={{ width: 0 }}
-                    animate={{ width: '100%' }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
+                {/* Premium Hover Underline */}
+                <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-[var(--primary)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left ${pathname === item.href ? 'scale-x-100' : ''}`} />
               </Link>
-            ))}
-
-            {/* Social Links */}
-            <div className="flex items-center space-x-4 border-l pl-4 border-gray-200">
-              {socialLinks.map((link, index) => (
-                <motion.div
-                  key={`desktop-${index}`}
-                  whileHover="hover"
-                  whileTap="tap"
-                  variants={iconVariants}
-                  className="text-[#0077B5] hover:text-[#0077B5]/80 transition-colors duration-300"
-                >
-                  <Link
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={link.label}
-                    className="block"
-                  >
-                    {link.icon}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
+            </Magnetic>
+          ))}
+          <div className="h-4 w-px bg-gray-200 dark:bg-white/10 mx-2" />
+          <ThemeToggle />
+          <Magnetic strength={0.1}>
             <Link
               href="/resume.pdf"
-              className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 transition-opacity duration-300"
+              className="px-6 py-2.5 rounded-xl bg-[#111827] dark:bg-white text-white dark:text-[#111827] text-xs font-black tracking-wide-label hover:scale-105 transition-transform duration-300 shimmer-effect overflow-hidden"
             >
-              Resume
+              RESUME
             </Link>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden">
-            <button
-              onClick={toggleMenu}
-              className="text-gray-600 hover:text-purple-400 focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? (
-                <FaTimes className="w-6 h-6" />
-              ) : (
-                <FaBars className="w-6 h-6" />
-              )}
-            </button>
-          </div>
+          </Magnetic>
         </div>
 
-        {/* Mobile Menu */}
-        <div
-          className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden px-4 py-6 absolute top-full left-0 w-full bg-white shadow-md`}
+        {/* Mobile menu button */}
+        <button
+          onClick={toggleMenu}
+          className="md:hidden relative z-[110] w-10 h-10 flex items-center justify-center text-gray-600 dark:text-white"
+          aria-label="Toggle Navigation"
         >
-          <ul className="flex flex-col space-y-4 text-center">
-            {menuItems.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={toggleMenu}
-                  className={`text-gray-600 hover:text-purple-400 transition-colors duration-300 font-medium text-lg ${pathname === item.href ? 'text-purple-500' : ''}`}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link
-                href="/resume.pdf"
-                onClick={toggleMenu}
-                className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 transition-opacity duration-300"
+          <AnimatePresence mode="wait">
+            {isMenuOpen ? (
+              <motion.div
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
               >
-                Resume
-              </Link>
-            </li>
-            <li className="flex justify-center space-x-4 pt-4 border-t border-gray-200">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-purple-400 transition-colors duration-300"
-                  aria-label={link.label}
-                >
-                  {link.icon}
-                </a>
-              ))}
-            </li>
-          </ul>
-        </div>
+                <FaTimes size={24} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="open"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+              >
+                <FaBars size={24} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </button>
       </nav>
+
+      {/* Mobile Menu Overlay - Moved outside nav for better stacking context */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            variants={menuVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            className="fixed inset-0 bg-white dark:bg-[#0d0907] z-[120] md:hidden flex flex-col"
+            style={{ height: '100dvh' }}
+          >
+            {/* Background Layer with solid opacity */}
+            <div className="absolute inset-0 bg-white dark:bg-[#0d0907] -z-20" />
+
+            {/* Decorative Background Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 dark:opacity-40 -z-10">
+              <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-[var(--primary)] blur-[120px] rounded-full" />
+              <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[var(--primary-hover)] blur-[120px] rounded-full" />
+            </div>
+
+            <div className="flex flex-col items-center justify-start min-h-screen overflow-y-auto px-8 pt-32 pb-12 w-full relative z-10">
+              <div className="flex flex-col items-center space-y-6 w-full mb-12">
+                {menuItems.map((item) => (
+                  <motion.div key={item.href} variants={itemVariants} className="w-full text-center">
+                    <Link
+                      href={item.href}
+                      onClick={toggleMenu}
+                      className={`block w-full py-3 text-4xl font-black tracking-tighter-heading transition-all duration-300 ${pathname === item.href
+                        ? 'text-[var(--primary)] scale-105'
+                        : 'text-[#111827] dark:text-white hover:text-[var(--primary)]'
+                        }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                variants={itemVariants}
+                className="mt-auto pb-4 pt-8 border-t border-gray-100 dark:border-white/5 flex flex-col items-center gap-8 w-full max-w-xs"
+              >
+                <div className="flex gap-10">
+                  {socialLinks.map((link, i) => (
+                    <motion.a
+                      key={i}
+                      href={link.href}
+                      whileHover={{ y: -5, color: 'var(--primary)' }}
+                      className="text-gray-400 dark:text-gray-500 transition-colors"
+                    >
+                      {link.icon}
+                    </motion.a>
+                  ))}
+                </div>
+                <div className="scale-125">
+                  <ThemeToggle />
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
